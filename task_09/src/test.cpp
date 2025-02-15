@@ -2,8 +2,6 @@
 
 #include <vector>
 
-#include "CanReachNonDecreasingSegment.hpp"
-
 TEST(CanReachNonDecreasingSegment, 1) {
   // ASSERT_EQ(SolveFunction(5, 4, 6,
   //                         std::vector<std::vector<int>>{{1, 2, 3, 5},
