@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(Heap_sort , int){
+TEST(Heap_sort , ints){
   std::vector<int> list = {2,3,1,4,1};
   std::vector<int> sorted_list = Heap_sort(list);
   std::sort(begin(list), end(list));
@@ -18,7 +18,7 @@ TEST(Heap_sort, empty_list){
   std::vector<int> expected_list = {};
   ASSERT_EQ(sorted_list, expected_list);
 }
-TEST(Heap_sort, double){
+TEST(Heap_sort, doubles){
   std::vector<double> list = {1.1, 2.4, 0.7, 5.6, -23.4};
   std::vector<double> sorted_list = Heap_sort(list);
   std::sort(begin(list), end(list));
