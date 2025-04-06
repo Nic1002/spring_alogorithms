@@ -1,4 +1,4 @@
 #include <vector>
 
-void find_sum( numbers, int len, int target);
+void find_sum(std::vector<int>& numbers, int len, int target);
     
