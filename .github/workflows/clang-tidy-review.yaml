@@ -12,10 +12,10 @@ jobs:
 
     # Optionally generate compile_commands.json
 
-    - uses: ZedThree/clang-tidy-review@v0.20.1
+    - uses: ZedThree/clang-tidy-review@v0.21
       with:
         apt_packages: libgtest-dev
-        clang_tidy_version: 18
+        clang_tidy_version: 19
         clang_tidy_checks: |
           -*,performance-*,bugprone-*,clang-analyzer-*,cppcoreguidelines-*,mpi-*,misc-*,
           -cppcoreguidelines-avoid-non-const-global-variables,-cppcoreguidelines-avoid-magic-numbers,
