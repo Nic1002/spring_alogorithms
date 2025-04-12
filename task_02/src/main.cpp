@@ -9,9 +9,9 @@ int main() {
     st.push(3);
     st.push(7);
     st.push(8);
-    std::cout << st.pop() << " " << st.pop() << " " << st.pop() << " " << st.pop() << " ";
-    st.push(0);
-    std::cout << st.pop();
+    // std::cout << st.pop() << " " << st.pop() << " " << st.pop() << " " << st.pop() << " ";
+    // st.push(0);
+    // std::cout << st.pop();
 
     MinStack<int> stm{};
     stm.push(5);
@@ -26,7 +26,7 @@ int main() {
     std::cout << stm.pop() << " " << stm.getmin() << std::endl;
     std::cout << stm.pop() << " " << stm.getmin() << std::endl;
     std::cout << stm.pop() << " " << stm.getmin() << std::endl;
-    std::cout << stm.pop() << " " ;
+    std::cout << stm.pop() << " " << stm.getmin();
     // std::cout << stm.getmin() << stm.getmin() << stm.getmin();
     return 0; 
 }

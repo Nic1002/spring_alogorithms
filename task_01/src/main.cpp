@@ -33,7 +33,7 @@ int main() {
     // int* p_begin = &test[0];
     // int* p_end = &test[test.size() - 1];
     // std::cout << *p_begin +*p_end << std::endl;
-    // std::cout << find_two_nums(a, test)[0] << " " << find_two_nums(a, test)[1] << std::endl;
+    // std::cout << find_nums(a, test)[0] << " " << find_nums(a, test)[1] << std::endl;
     test.back();
     a = test.back();
     std::cout << a << std::endl;
