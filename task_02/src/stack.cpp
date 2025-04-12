@@ -3,7 +3,6 @@
 // #include <exception>
 // #include <stdexcept>
 
-
 // template <typename T>
 // void Stack<T>::push(T value) { data_.push_back(value); }
 
@@ -13,7 +12,7 @@
 //   return result;
 // }
 
-// void MinStack::push(int value) { 
+// void MinStack::push(int value) {
 //   data_.push_back(value);
 //   if(data_mins.size() == 0 || value <= data_mins.back()){
 //     data_mins.push_back(value);
@@ -33,5 +32,5 @@
 //   if(data_mins.size() == 0){
 //     throw std::runtime_error("Пустой стек - нет минимума");
 //   }
-//   return data_mins.back(); 
+//   return data_mins.back();
 // }
