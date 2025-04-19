@@ -1,6 +1,14 @@
+#include <concepts>
+#include <exception>
+#include <stdexcept>
 #include <vector>
 
 template <typename T>
+concept Comparable = requires(T a, T b) {
+  { a < b } -> std::convertible_to<bool>;
+};
+
+template <Comparable T>
 class Stack {
  public:
   void Push(T k);
@@ -10,19 +18,20 @@ class Stack {
   std ::vector<T> _data;
 };
 
-template <typename T>
+template <Comparable T>
 void Stack<T>::Push(T k) {
   _data.push_back(k);
 }
 
-template <typename T>
+template <Comparable T>
 T Stack<T>::Pop() {
+  if (_data.size() == 0) throw std::runtime_error("No data in stack");
   T pop_val{_data.back()};
   _data.pop_back();
   return pop_val;
 }
 
-template <typename T>
+template <Comparable T>
 class MinStack {
  public:
   void Push(T k);
@@ -34,7 +43,7 @@ class MinStack {
   std ::vector<T> _min_data;
 };
 
-template <typename T>
+template <Comparable T>
 void MinStack<T>::Push(T k) {
   if (_min_data.size() == 0)
     _min_data.push_back(k);
@@ -45,39 +54,17 @@ void MinStack<T>::Push(T k) {
   _data.push_back(k);
 }
 
-template <typename T>
+template <Comparable T>
 T MinStack<T>::Pop() {
+  if ((_data.size() == 0)  || (_min_data.size() == 0))throw std::runtime_error("No data in stack");
   T pop_val{_data.back()};
   _data.pop_back();
   _min_data.pop_back();
   return pop_val;
 }
 
-template <typename T>
+template <Comparable T>
 T MinStack<T>::GetMin() {
+  if (_min_data.size() == 0) throw std::runtime_error("No data in stack");
   return _min_data.back();
 }
-
-// #pragma once
-
-// #include <stack>
-// #include <vector>
-
-// class Stack {
-//  public:
-//   void Push(int value);
-//   int Pop();
-
-//  private:
-//   std::stack<int> data_;
-// };
-
-// class MinStack {
-//  public:
-//   void Push(int value);
-//   int Pop();
-//   int GetMin();
-
-//  private:
-//   std::vector<int> data_;
-// };
