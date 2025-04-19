@@ -1,11 +1,8 @@
-#include <string>
-#include <vector>
-
-struct no_sum_num {
-  std ::string s{"no possible way to solve task"};
-};
+#include "find.hpp"
 
 std ::vector<int> find_nums(int k, std ::vector<int> sequence) {
+  if (sequence.size() == 0) throw no_sum_num{};
+
   std ::vector<int> ans;
   unsigned long left_index{0};
   unsigned long right_index{sequence.size() - 1};
