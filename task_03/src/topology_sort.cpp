@@ -1,6 +1,6 @@
-#include "warming_func.hpp"
-
 #include <stack>
+
+#include "warming_func.hpp"
 
 std ::vector<int> warming(std ::vector<int> temperature) {
   std::stack<int> index;

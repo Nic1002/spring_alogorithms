@@ -41,6 +41,6 @@ TEST(Warm, Negative) {
 
 TEST(Warm, BigDiff) {
   std ::vector<int> temperature = {0, -10, 100, 5, 1000};
-  std ::vector<int> ans = {2, 1, 1, 1, 0};
+  std ::vector<int> ans = {2, 1, 2, 1, 0};
   ASSERT_EQ(warming(temperature), ans);
 }
