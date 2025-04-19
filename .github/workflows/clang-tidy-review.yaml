@@ -12,10 +12,10 @@ jobs:
 
     # Optionally generate compile_commands.json
 
-    - uses: ZedThree/clang-tidy-review@v0.20.1
+    - uses: ZedThree/clang-tidy-review@v0.21.0
       with:
         apt_packages: libgtest-dev
-        clang_tidy_version: 18
+        clang_tidy_version: 19
         clang_tidy_checks: |
           -*,performance-*,bugprone-*,clang-analyzer-*,cppcoreguidelines-*,mpi-*,misc-*,
           -cppcoreguidelines-avoid-non-const-global-variables,-cppcoreguidelines-avoid-magic-numbers,
@@ -27,7 +27,7 @@ jobs:
         split_workflow: true
 
     # Uploads an artefact containing clang_fixes.json
-    - uses: ZedThree/clang-tidy-review/upload@v0.20.1
+    - uses: ZedThree/clang-tidy-review/upload@v0.21.0
       id: upload-review
 
     # If there are any comments, fail the check
