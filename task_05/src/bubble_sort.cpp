@@ -1,6 +1,6 @@
 #include "bubble_sort.hpp"
 
-void bubble_sort(std::vector<int>& vec) {
+void BubbleSort(std::vector<int>& vec) {
   int n = vec.size();
 
   while (n > 1) {

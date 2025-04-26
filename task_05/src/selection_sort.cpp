@@ -1,10 +1,10 @@
 #include "selection_sort.hpp"
 
-int _max(int a, int b) { return a >= b ? a : b; }
-int _min(int a, int b) { return a <= b ? a : b; }
+int Maxx(int a, int b) { return a >= b ? a : b; }
+int Minn(int a, int b) { return a <= b ? a : b; }
 
-std::vector<int> _slice(const std::vector<int>& vector, const size_t from,
-                        const size_t to) {
+std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
+                       const size_t to) {
   if (from < to)
     return std::vector<int>{vector.begin() + from, vector.begin() + to};
   else

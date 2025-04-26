@@ -4,8 +4,8 @@
 
 #include <vector>
 
-int partition(std::vector<int> &arr, int low, int high);
+int Partition(std::vector<int>& arr, int low, int high);
 
-void q_sort(std::vector<int> &arr, int low, int high);
+void QSort(std::vector<int>& arr, int low, int high);
 
-void q_sort_new(std::vector<int> &arr);
+void QSortNew(std::vector<int>& arr);

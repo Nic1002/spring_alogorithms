@@ -15,4 +15,4 @@
 
 #include <vector>
 
-void bubble_sort(std::vector<int>& vec);
+void BubbleSort(std::vector<int>& vec);

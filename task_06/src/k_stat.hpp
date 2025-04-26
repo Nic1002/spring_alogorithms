@@ -1,6 +1,6 @@
 #include <vector>
 
-int partition(std::vector<int>& arr, int left, int right);
+int Partition(std::vector<int>& arr, int left, int right);
 
 int quick_select(std::vector<int>& arr, int left, int right, int k);
 

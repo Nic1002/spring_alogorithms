@@ -8,4 +8,4 @@ Aлгоритм сортировки, в котором элементы вхо�
 
 #include <vector>
 
-void insertion_sort(std::vector<int>& vec);
+void InsertionSort(std::vector<int>& vec);

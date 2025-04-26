@@ -23,4 +23,4 @@ quicksort), часто называемая qsort Выбрать из масси
 
 #include <vector>
 
-void quick_sort(std::vector<int>& vec, int first, int last);
+void QuickSort(std::vector<int>& vec, int first, int last);

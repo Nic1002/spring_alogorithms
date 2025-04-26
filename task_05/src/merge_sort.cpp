@@ -1,17 +1,17 @@
 #include "merge_sort.hpp"
 
-int _max(int a, int b) { return a >= b ? a : b; }
-int _min(int a, int b) { return a <= b ? a : b; }
+int Maxx(int a, int b) { return a >= b ? a : b; }
+int Minn(int a, int b) { return a <= b ? a : b; }
 
-std::vector<int> _slice(const std::vector<int>& vector, const size_t from,
-                        const size_t to) {
+std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
+                       const size_t to) {
   if (from < to)
     return std::vector<int>{vector.begin() + from, vector.begin() + to};
   else
     return std::vector<int>{};
 }
 
-std::vector<int> _merge(std::vector<int>& left, std::vector<int>& right) {
+std::vector<int> Merge(std::vector<int>& left, std::vector<int>& right) {
   std::vector<int> nw;
   size_t i_l = 0;
   size_t i_r = 0;
@@ -36,14 +36,14 @@ std::vector<int> _merge(std::vector<int>& left, std::vector<int>& right) {
   }
   return nw;
 }
-void merge_sort(std::vector<int>& vec) {
+void MergeSort(std::vector<int>& vec) {
   int n = vec.size();
   if (n <= 1) return;
-  std::vector<int> left = _slice(vec, 0, n / 2);
-  std::vector<int> right = _slice(vec, n / 2, n);
+  std::vector<int> left = Slice(vec, 0, n / 2);
+  std::vector<int> right = Slice(vec, n / 2, n);
 
-  merge_sort(left);
-  merge_sort(right);
+  MergeSort(left);
+  MergeSort(right);
 
-  vec = _merge(left, right);
+  vec = Merge(left, right);
 }

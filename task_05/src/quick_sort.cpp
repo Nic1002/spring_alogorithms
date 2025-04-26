@@ -1,6 +1,6 @@
 #include "quick_sort.hpp"
 
-void quick_sort(std::vector<int>& vec, int first, int last) {
+void QuickSort(std::vector<int>& vec, int first, int last) {
   if (last - first <= 0) return;
   int index_big = last + 1;
   for (size_t i = first + 1; i <= last; ++i) {
@@ -21,6 +21,6 @@ void quick_sort(std::vector<int>& vec, int first, int last) {
   int tmp = vec[index_big - 1];
   vec[index_big - 1] = vec[first];
   vec[first] = tmp;
-  quick_sort(vec, first, index_big - 2);
-  quick_sort(vec, index_big, last);
+  QuickSort(vec, first, index_big - 2);
+  QuickSort(vec, index_big, last);
 }

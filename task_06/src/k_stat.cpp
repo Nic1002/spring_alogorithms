@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 
-int partition(std::vector<int>& arr, int left, int right) {
+int Partition(std::vector<int>& arr, int left, int right) {
   int pivotIndex = left + rand() % (right - left + 1);
   int pivotValue = arr[pivotIndex];
 
@@ -25,7 +25,7 @@ int partition(std::vector<int>& arr, int left, int right) {
 int quick_select(std::vector<int>& arr, int left, int right, int k) {
   if (left == right) return arr[left];
 
-  int pivotIndex = partition(arr, left, right);
+  int pivotIndex = Partition(arr, left, right);
 
   if (k == pivotIndex)
     return arr[k];

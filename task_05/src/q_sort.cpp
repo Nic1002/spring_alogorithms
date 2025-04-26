@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cstdlib>
 
-int partition(std::vector<int> &arr, int low, int high) {
+int Partition(std::vector<int> &arr, int low, int high) {
   int pivotIndex = low + rand() % (high - low + 1);
   int pivot = arr[pivotIndex];
 
@@ -22,14 +22,14 @@ int partition(std::vector<int> &arr, int low, int high) {
   return i;
 }
 
-void q_sort(std::vector<int> &arr, int low, int high) {
+void QSort(std::vector<int> &arr, int low, int high) {
   if (low < high) {
     // pi - индекс разделения, arr[pi] теперь на правильном месте
-    int pi = partition(arr, low, high);
+    int pi = Partition(arr, low, high);
 
-    q_sort(arr, low, pi - 1);
-    q_sort(arr, pi + 1, high);
+    QSort(arr, low, pi - 1);
+    QSort(arr, pi + 1, high);
   }
 }
 
-void q_sort_new(std::vector<int> &arr) { q_sort(arr, 0, arr.size() - 1); }
+void QSortNew(std::vector<int> &arr) { QSort(arr, 0, arr.size() - 1); }

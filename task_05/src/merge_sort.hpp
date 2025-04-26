@@ -24,12 +24,12 @@
 
 #include <vector>
 
-int _max(int a, int b);
-int _min(int a, int b);
+int Maxx(int a, int b);
+int Minn(int a, int b);
 
-std::vector<int> _slice(const std::vector<int>& vector, const size_t from,
-                        const size_t to);
+std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
+                       const size_t to);
 
-std::vector<int> _merge(std::vector<int>& left, std::vector<int>& right);
+std::vector<int> Merge(std::vector<int>& left, std::vector<int>& right);
 
-void merge_sort(std::vector<int>& vec);
+void MergeSort(std::vector<int>& vec);

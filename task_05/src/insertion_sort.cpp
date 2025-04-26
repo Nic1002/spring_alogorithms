@@ -1,6 +1,6 @@
 #include "insertion_sort.hpp"
 
-void insertion_sort(std::vector<int>& vec) {
+void InsertionSort(std::vector<int>& vec) {
   int n = vec.size();
 
   for (size_t i = 0; i < n; i++) {
