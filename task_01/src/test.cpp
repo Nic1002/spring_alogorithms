@@ -9,7 +9,7 @@
 std::string captureOutput(std::vector<int>& numbers, int len, int target) {
   std::stringstream buffer;
   std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
-s
+
   FindSum(numbers, len, target);
 
   std::cout.rdbuf(old);
