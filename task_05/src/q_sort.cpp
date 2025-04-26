@@ -4,10 +4,10 @@
 #include <cstdlib>
 
 int Partition(std::vector<int> &arr, int low, int high) {
-  int pivotIndex = low + rand() % (high - low + 1);
-  int pivot = arr[pivotIndex];
+  int pivot_index = low + rand() % (high - low + 1);
+  int pivot = arr[pivot_index];
 
-  std::swap(arr[pivotIndex], arr[high]);
+  std::swap(arr[pivot_index], arr[high]);
 
   int i = low;  // Указатель на место для следующего меньшего элемента
 
