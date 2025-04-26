@@ -56,7 +56,8 @@ void MinStack<T>::Push(T k) {
 
 template <Comparable T>
 T MinStack<T>::Pop() {
-  if ((_data.size() == 0)  || (_min_data.size() == 0))throw std::runtime_error("No data in stack");
+  if ((_data.size() == 0) || (_min_data.size() == 0))
+    throw std::runtime_error("No data in stack");
   T pop_val{_data.back()};
   _data.pop_back();
   _min_data.pop_back();

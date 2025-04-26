@@ -85,7 +85,7 @@ KDTree::KDTree(std ::vector<Point> points) {
 
   cloud = std::move(points);
   prepare_points(cloud);
-  
+
   root = std::make_unique<Node>();
   root->indices = std::make_pair(0, cloud.size() - 1);
   root->bounding_box = std::make_pair(cloud[0], cloud[cloud.size() - 1]);
