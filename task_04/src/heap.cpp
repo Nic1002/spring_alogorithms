@@ -1,69 +1,33 @@
-// #include <iostream>
-// #include <vector>
-// #include "heap.h"
+#include "heap.hpp"
 
-// struct heap{
-//     std::vector<int> our_tree{0}; // объявил и проинициализировал ветор с будущмим значениями
+#include <climits>
+#include <vector>
 
-//     int len(){
-//         int l = our_tree.size() - 1;
-//         return l;
-//     }
+std::vector<std::pair<int, int>> buyFishSimplified(
+    const std::vector<int>& prices, int K) {
+  std::vector<std::pair<int, int>> purchases;
+  int N = prices.size();
 
-//     int operator []( int i ) {
-//         return our_tree[i];
-//     }
+  for (int i = 0; i < N;) {
+    int min_price = INT_MAX;
+    int best_day = i;
+    int window_end = std::min(i + K, N);
 
-//     int print (){
-//         for (int k{0}; k < our_tree.size(); ++k)
-//             std::cout << our_tree[k]; 
-//     }
+    // Находим день с минимальной ценой в окне
+    for (int j = i; j < window_end; j++) {
+      if (prices[j] < min_price) {
+        min_price = prices[j];
+        best_day = j;
+      }
+    }
 
-//     void push(int x){
-//         our_tree.push_back(x);
-//         int i = our_tree.size() - 1;
-//         while (i > 0){
-//             int p = i/2;
-//             if ((p > 0) and (our_tree[i] < our_tree[p])){
-//                 std::swap(our_tree[i], our_tree[p]);
-//                 i = p;
-//             }
-//             else break;
-//         }
-//     };
+    // Вычисляем сколько дней можно покрыть этой покупкой
+    int days_covered = std::min(K, N - best_day);
+    purchases.emplace_back(best_day, days_covered);
 
-//     int min(){
-//         int i = our_tree.size() - 1;
-//         return our_tree[i];
-//     };
-    
-//     void min_pop(){
-//         int lst_index = our_tree.size() - 1;
-//         int i = lst_index;
-//         std::swap(our_tree[i], our_tree[1]);
-//         our_tree.pop_back();
-//         i = 1;
-//         while(i < lst_index){
-//             int l_ch = i*2;
-//             int r_ch = i*2+1;
+    // Переходим к следующему непокрытому дню
+    i = best_day + days_covered;
+  }
 
-//             if (our_tree[l_ch] > our_tree[r_ch])
-//                 std::swap(our_tree[l_ch], our_tree[r_ch]);
-            
-//             if (our_tree[i] > our_tree[l_ch]) {
-//                 std::swap(our_tree[i], our_tree[l_ch]);
-//                 i = l_ch;
-//             }else break;
-//         }  
-//     };
-
-//     int sort()int sort(){
-//         return 0;
-//     }; // сортирует до полного порядка
-
-//     // далее необязательные но приятные дополнения
-//     int create(){
-//         return 0;
-//     }; // создает кучу из переданного объетка
-
-// };
+  return purchases;
+}
