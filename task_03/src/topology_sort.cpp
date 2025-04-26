@@ -2,7 +2,7 @@
 
 #include <stack>
 
-std::vector<int> topology_sort(const std::vector<int>& temperatures) {
+std::vector<int> TopologySort(const std::vector<int>& temperatures) {
   std::vector<int> result(temperatures.size(), 0);
   std::stack<std::pair<int, int>> s;
 

@@ -17,5 +17,5 @@ int main() {
   std::cout << "Enter the array:";
   for (int i{0}; i < len; ++i) std::cin >> numbers[i];
 
-  find_sum(numbers, len, target);
+  FindSum(numbers, len, target);
 }
