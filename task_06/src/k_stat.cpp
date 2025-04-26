@@ -37,7 +37,7 @@ int QuickSelect(std::vector<int>& arr, int left, int right, int k) {
     return QuickSelect(arr, pivot_index + 1, right, k);
 }
 
-int find_k_stat(std::vector<int>& arr, int n) {
+int FindKStat(std::vector<int>& arr, int n) {
   if (n < 0 || n >= arr.size()) {
     std::cerr << "Invalid n: out of bounds!" << '\n';
     return -1;

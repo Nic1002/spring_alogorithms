@@ -11,7 +11,7 @@ std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
     return std::vector<int>{};
 }
 
-void selection_sort(std::vector<int>& vec) {
+void SelectionSort(std::vector<int>& vec) {
   int n = vec.size();
 
   for (size_t i = 0; i < n; i++) {

@@ -1,10 +1,10 @@
 #include "merge_sort.hpp"
 
-int Maxx(int a, int b) { return a >= b ? a : b; }
-int Minn(int a, int b) { return a <= b ? a : b; }
+int Mmax(int a, int b) { return a >= b ? a : b; }
+int Mmin(int a, int b) { return a <= b ? a : b; }
 
-std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
-                       const size_t to) {
+std::vector<int> Sslice(const std::vector<int>& vector, const size_t from,
+                        const size_t to) {
   if (from < to)
     return std::vector<int>{vector.begin() + from, vector.begin() + to};
   else
@@ -39,8 +39,8 @@ std::vector<int> Merge(std::vector<int>& left, std::vector<int>& right) {
 void MergeSort(std::vector<int>& vec) {
   int n = vec.size();
   if (n <= 1) return;
-  std::vector<int> left = Slice(vec, 0, n / 2);
-  std::vector<int> right = Slice(vec, n / 2, n);
+  std::vector<int> left = Sslice(vec, 0, n / 2);
+  std::vector<int> right = Sslice(vec, n / 2, n);
 
   MergeSort(left);
   MergeSort(right);

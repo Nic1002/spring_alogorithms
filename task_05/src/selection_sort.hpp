@@ -17,4 +17,4 @@ int Minn(int a, int b);
 std::vector<int> Slice(const std::vector<int>& vector, const size_t from,
                        const size_t to);
 
-void selection_sort(std::vector<int>& vec);
+void SelectionSort(std::vector<int>& vec);

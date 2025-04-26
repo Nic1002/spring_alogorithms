@@ -22,14 +22,14 @@ int Partition(std::vector<int> &arr, int low, int high) {
   return i;
 }
 
-void QSort(std::vector<int> &arr, int low, int high) {
+void QSortWithI(std::vector<int> &arr, int low, int high) {
   if (low < high) {
     // pi - индекс разделения, arr[pi] теперь на правильном месте
     int pi = Partition(arr, low, high);
 
-    QSort(arr, low, pi - 1);
-    QSort(arr, pi + 1, high);
+    QSortWithI(arr, low, pi - 1);
+    QSortWithI(arr, pi + 1, high);
   }
 }
 
-void QSortNew(std::vector<int> &arr) { QSort(arr, 0, arr.size() - 1); }
+void QSort(std::vector<int> &arr) { QSortWithI(arr, 0, arr.size() - 1); }

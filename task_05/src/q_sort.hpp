@@ -6,6 +6,6 @@
 
 int Partition(std::vector<int>& arr, int low, int high);
 
-void QSort(std::vector<int>& arr, int low, int high);
+void QSortWithI(std::vector<int>& arr, int low, int high);
 
-void QSortNew(std::vector<int>& arr);
+void QSort(std::vector<int>& arr);
