@@ -6,4 +6,3 @@
 #include "merge_sort.hpp"
 #include "quick_sort.hpp"
 #include "selection_sort.hpp"
-
