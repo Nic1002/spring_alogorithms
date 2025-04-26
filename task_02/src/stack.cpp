@@ -1,21 +1,40 @@
 #include "stack.hpp"
-
 #include <algorithm>
+#include <iostream>
+#include <stdexcept>
 
-void Stack::Push(int value) { data_.push(value); }
-
-int Stack::Pop() {
-  auto result = data_.top();
-  data_.pop();
-  return result;
+void Stack::push(int element) {
+    arr.push_back(element);
 }
 
-void MinStack::Push(int value) { data_.push_back(value); }
-
-int MinStack::Pop() {
-  auto result = data_.back();
-  data_.pop_back();
-  return result;
+void Stack::pop() {
+    if (arr.empty()) {
+        throw std::out_of_range("Stack is empty. Cannot pop.");
+    }
+    arr.pop_back();
 }
 
-int MinStack::GetMin() { return *std::min_element(data_.begin(), data_.end()); }
+int Stack::peek() {
+    if (arr.empty()) {
+        throw std::out_of_range("Stack is empty. Cannot peek.");
+    }
+    return arr.back();
+}
+
+void Stack::display() {
+    if (arr.empty()) {
+        std::cout << "Stack is empty." << std::endl;
+        return;
+    }
+    for (int i = 0; i < arr.size(); ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int Stack::min() {
+    if (arr.empty()) {
+        throw std::out_of_range("Stack is empty. Cannot find min.");
+    }
+    return *std::min_element(arr.begin(), arr.end());
+}

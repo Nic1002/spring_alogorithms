@@ -1,5 +1,4 @@
 #include "two_numbers.h"
-#include <iostream>
 
 void find_sum(std::vector<int>& numbers, int len, int target){
     int left_r = 0;
