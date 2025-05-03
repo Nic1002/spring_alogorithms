@@ -2,7 +2,7 @@
 
 #include "warming_func.hpp"
 
-std ::vector<int> warming(std ::vector<int> temperature) {
+std ::vector<int> Warming(std ::vector<int> temperature) {
   std::stack<int> index;
   std ::vector<int> ans(temperature.size());
 

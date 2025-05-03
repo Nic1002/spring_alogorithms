@@ -1,3 +1,3 @@
 #include <vector>
 
-std ::vector<int> warming(std ::vector<int> temperature);
+std ::vector<int> Warming(std ::vector<int> temperature);
