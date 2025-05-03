@@ -1,3 +1,8 @@
 #include <iostream>
+#include <vector>
 
-int main() { return 0; }
+int main() {
+  int k;
+  std ::cin >> k;
+  std ::cout << std ::hash<int>{}(k);
+}
