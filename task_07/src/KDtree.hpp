@@ -23,7 +23,7 @@ class KDTree {
  public:
   KDTree(std::vector<Point> points);
   ~KDTree() = default;
-  Point nearest_point(Point target);
+  Point NearestPoint(Point target);
 
  private:
   std ::vector<Point> cloud;
@@ -46,15 +46,15 @@ class KDTree {
   void split(std::unique_ptr<Node>& node, axis Ax = axis::Ox, int depth = 0);
   std ::pair<double, double> SAH(Point left_min_point, Point right_max_point,
                                  axis curr_axis, std::pair<int, int>& range);
-  std::pair<double, Point> find_minimum(Point target,
+  std::pair<double, Point> FindMinimum(Point target,
                                         std::unique_ptr<Node>& node);
-  void prepare_points(std::vector<Point>& points);
-  double distance(Point first, Point second);
-  double distanceToBox(Point& point, std::pair<Point, Point>& box);
-  bool into_box(Point target, std::pair<Point, Point> box);
+  void PreparePoints(std::vector<Point>& points);
+  double Distance(Point first, Point second);
+  double DistanceToBox(Point& point, std::pair<Point, Point>& box);
+  bool IntoBox(Point target, std::pair<Point, Point> box);
 
   template <typename T>
-  auto get_axis(const T& request, axis ax) {
+  auto GetAxis(const T& request, axis ax) {
     if (ax == axis::Ox)
       return request.x;
     else

@@ -8,7 +8,7 @@
 
 #include "constants.hpp"
 
-void KDTree::prepare_points(std::vector<Point>& points) {
+void KDTree::PreparePoints(std::vector<Point>& points) {
   std::sort(std::execution::par, points.begin(), points.end(),
             [](const Point& a, const Point& b) {
               return std::tie(a.x, a.y) < std::tie(b.x, b.y);
@@ -84,7 +84,7 @@ KDTree::KDTree(std ::vector<Point> points) {
   if (points.size() == 0) throw std::invalid_argument{"No Points detected"};
 
   cloud = std::move(points);
-  prepare_points(cloud);
+  PreparePoints(cloud);
 
   root = std::make_unique<Node>();
   root->indices = std::make_pair(0, cloud.size() - 1);

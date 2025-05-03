@@ -12,6 +12,6 @@ int main() {
 
   KDTree tree(cloud);
   std ::cout << "compiled\n";
-  Point k = tree.nearest_point(Point(4.8, 5.9));
+  Point k = tree.NearestPoint(Point(4.8, 5.9));
   std ::cout << k.x << " " << k.y << std ::endl;
 }
