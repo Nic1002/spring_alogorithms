@@ -1,7 +1,7 @@
 #include "find.hpp"
 
-std ::vector<int> find_nums(int k, std ::vector<int> sequence) {
-  if (sequence.size() == 0) throw no_sum_num{};
+std ::vector<int> FindNums(int k, std ::vector<int> sequence) {
+  if (sequence.size() == 0) throw NoSumNum{};
 
   std ::vector<int> ans;
   unsigned long left_index{0};
@@ -16,5 +16,5 @@ std ::vector<int> find_nums(int k, std ::vector<int> sequence) {
     else
       ++left_index;
   }
-  throw no_sum_num{};
+  throw NoSumNum{};
 }
