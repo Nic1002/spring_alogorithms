@@ -31,11 +31,11 @@
 //   } while (true);
 // }
 
-// int main() {
-//   std ::vector<int> unsort{3, 2, 4, 5, 1, 9, 7};
-//   MergeSort(unsort);
-//   for (int i = 0; i < unsort.size(); ++i) {
-//     std ::cout << unsort[i] << " ";
-//   }
-//   std ::cout << std ::endl;
-// }
+int main() {
+  //   std ::vector<int> unsort{3, 2, 4, 5, 1, 9, 7};
+  //   MergeSort(unsort);
+  //   for (int i = 0; i < unsort.size(); ++i) {
+  //     std ::cout << unsort[i] << " ";
+  //   }
+  //   std ::cout << std ::endl;
+}
