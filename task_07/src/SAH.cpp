@@ -6,14 +6,14 @@
 #include "constants.hpp"
 
 std::pair<double, double> KDTree::SAH(Point left_min_point,
-                                      Point right_max_point, axis curr_axis,
+                                      Point right_max_point, Axis curr_axis,
                                       std::pair<int, int>& range) {
   std::pair<double, double> SAH_result{NONE, NONE};
-  double width = GetAxis(right_max_point, curr_axis) -
-                 GetAxis(left_min_point, curr_axis);
+  double width =
+      GetAxis(right_max_point, curr_axis) - GetAxis(left_min_point, curr_axis);
   double width_x = right_max_point.x - left_min_point.x;
   double width_y = right_max_point.y - left_min_point.y;
-  double width_w = curr_axis == axis::Ox ? width_y : width_x;
+  double width_w = curr_axis == Axis::Ox ? width_y : width_x;
   double SApar = width_x * width_y;
 
   if (SApar <= 0) return SAH_result;

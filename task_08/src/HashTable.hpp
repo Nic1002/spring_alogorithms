@@ -5,9 +5,9 @@ class HashTable {
  public:
   HashTable();
 
-  void add(std::string key, int value);
-  void remove(std::string key);
-  int get(std::string key);
+  void add(const std::string& key, int value);
+  void remove(const std::string& key);
+  int get(const std::string& key);
 
  private:
   enum struct Label {
@@ -22,7 +22,7 @@ class HashTable {
   };
   int EngagedSpace = 0;
   std ::vector<Elem> data;
-  size_t MyHash(std::string value);
+  size_t MyHash(const std::string& value);
   void Resize();
   Elem ZeroElem = {Label::Empty, 0};
 };

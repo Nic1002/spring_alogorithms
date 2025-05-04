@@ -9,7 +9,7 @@
 struct Point {
   double x;
   double y;
-  Point(double xx, double yy) : x{xx}, y{yy} {}
+  Point(double x, double y) : x{x}, y{y} {}
   Point() : x{NONE}, y{NONE} {}
 
   bool operator==(const Point& other) const {
@@ -38,24 +38,24 @@ class KDTree {
                                    // принадлежащих данной bounding_box [от, до]
   };
   std::unique_ptr<Node> root;
-  enum class axis {
+  enum class Axis {
     Ox = 0,
     Oy = 1,
   };
 
-  void split(std::unique_ptr<Node>& node, axis Ax = axis::Ox, int depth = 0);
+  void Split(std::unique_ptr<Node>& node, Axis Ax = Axis::Ox, int depth = 0);
   std ::pair<double, double> SAH(Point left_min_point, Point right_max_point,
-                                 axis curr_axis, std::pair<int, int>& range);
+                                 Axis curr_Axis, std::pair<int, int>& range);
   std::pair<double, Point> FindMinimum(Point target,
-                                        std::unique_ptr<Node>& node);
+                                       std::unique_ptr<Node>& node);
   void PreparePoints(std::vector<Point>& points);
   double Distance(Point first, Point second);
   double DistanceToBox(Point& point, std::pair<Point, Point>& box);
   bool IntoBox(Point target, std::pair<Point, Point> box);
 
   template <typename T>
-  auto GetAxis(const T& request, axis ax) {
-    if (ax == axis::Ox)
+  auto GetAxis(const T& request, Axis ax) {
+    if (ax == Axis::Ox)
       return request.x;
     else
       return request.y;

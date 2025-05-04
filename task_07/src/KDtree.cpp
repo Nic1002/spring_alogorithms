@@ -6,8 +6,6 @@
 #include <execution>
 #include <stdexcept>
 
-#include "constants.hpp"
-
 void KDTree::PreparePoints(std::vector<Point>& points) {
   std::sort(std::execution::par, points.begin(), points.end(),
             [](const Point& a, const Point& b) {
@@ -20,8 +18,8 @@ void KDTree::PreparePoints(std::vector<Point>& points) {
   points.erase(std::unique(points.begin(), points.end(), equal), points.end());
 }
 
-void KDTree::split(std::unique_ptr<Node>& node, axis Ax, int depth) {
-  std ::pair<double, double> SAH = KDTree::SAH(
+void KDTree::Split(std::unique_ptr<Node>& node, Axis Ax, int depth) {
+  std::pair<double, double> SAH = KDTree::SAH(
       node->bounding_box.first, node->bounding_box.second, Ax, node->indices);
 
   double SAH_parant = Ci * (node->indices.second - node->indices.first);
@@ -34,7 +32,7 @@ void KDTree::split(std::unique_ptr<Node>& node, axis Ax, int depth) {
   node->left_child = std::make_unique<Node>();
   node->right_child = std::make_unique<Node>();
 
-  if (Ax == axis::Ox) {
+  if (Ax == Axis::Ox) {
     node->left_child->bounding_box.first = node->bounding_box.first;
     node->left_child->bounding_box.second =
         Point(SAH.second, node->bounding_box.second.y);
@@ -57,31 +55,31 @@ void KDTree::split(std::unique_ptr<Node>& node, axis Ax, int depth) {
       std::execution::par, cloud.begin() + node->indices.first,
       cloud.begin() + node->indices.second + 1,
       [Ax, split_pos = SAH.second](const Point& p) {
-        return (Ax == axis::Ox) ? p.x < split_pos : p.y < split_pos;
+        return (Ax == Axis::Ox) ? p.x < split_pos : p.y < split_pos;
       });
 
   node->left_child->indices.second = node->indices.first + left_count - 1;
   node->right_child->indices.first = node->indices.first + left_count;
   node->right_child->indices.second = node->indices.second;
 
-  Ax == axis::Ox ? Ax = axis::Oy : Ax = axis::Ox;
+  Ax = (Ax == Axis::Ox) ? Axis::Oy : Axis::Ox;
 
   if (depth < max_parallel_depth) {
 #pragma omp task shared(node)
-    split(node->left_child, Ax, depth + 1);
+    Split(node->left_child, Ax, depth + 1);
 
 #pragma omp task shared(node)
-    split(node->right_child, Ax, depth + 1);
+    Split(node->right_child, Ax, depth + 1);
 
 #pragma omp taskwait
   } else {
-    split(node->left_child, Ax, depth + 1);
-    split(node->right_child, Ax, depth + 1);
+    Split(node->left_child, Ax, depth + 1);
+    Split(node->right_child, Ax, depth + 1);
   }
 }
 
 KDTree::KDTree(std ::vector<Point> points) {
-  if (points.size() == 0) throw std::invalid_argument{"No Points detected"};
+  if (points.empty()) throw std::invalid_argument{"No Points detected"};
 
   cloud = std::move(points);
   PreparePoints(cloud);
@@ -93,6 +91,6 @@ KDTree::KDTree(std ::vector<Point> points) {
 #pragma omp parallel
   {
 #pragma omp single nowait
-    split(root, axis::Ox, 0);
+    Split(root, Axis::Ox, 0);
   }
 }

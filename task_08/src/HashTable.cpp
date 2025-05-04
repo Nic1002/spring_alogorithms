@@ -3,7 +3,7 @@
 #include <functional>
 #include <stdexcept>
 
-size_t HashTable::MyHash(std::string value) {
+size_t HashTable::MyHash(const std::string& value) {
   return std::hash<std::string>{}(value) * 0xdeadbeef;
 }
 
@@ -16,14 +16,14 @@ void HashTable::Resize() {
   std::vector<Elem> NewData(data.size() * 2, ZeroElem);
   std::vector<Elem> OldData = std::move(data);
   data = std::move(NewData);
-  for (auto elem : OldData) {
+  for (auto& elem : OldData) {
     if (elem.CurrentLabel == Label::Full) {
       add(elem.Key, elem.Value);
     }
   }
 }
 
-void HashTable::add(std::string key, int value) {
+void HashTable::add(const std::string& key, int value) {
   int index = MyHash(key) % data.size();
   int BeginingIndex = index;
   while ((data[index].CurrentLabel != Label::Empty) &&
@@ -43,7 +43,7 @@ void HashTable::add(std::string key, int value) {
   if (EngagedSpace > (data.size() / 2)) Resize();
 }
 
-void HashTable::remove(std::string key) {
+void HashTable::remove(const std::string& key) {
   int index = MyHash(key) % data.size();
   int BeginingIndex = index;
   while (data[index].Key != key) {
@@ -55,7 +55,7 @@ void HashTable::remove(std::string key) {
   --EngagedSpace;
 }
 
-int HashTable::get(std::string key) {
+int HashTable::get(const std::string& key) {
   int index = MyHash(key) % data.size();
   while ((data[index].Key != key) &&
          (data[index].CurrentLabel != Label::Empty)) {
