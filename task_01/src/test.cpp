@@ -5,7 +5,7 @@
 
 #include "sum_two_num.h"
 
-std::string captureOutput(std::vector<int>& vec, int len, int num) {
+static std::string captureOutput(std::vector<int>& vec, int len, int num) {
   std::stringstream buffer;
   std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
 
@@ -19,7 +19,7 @@ TEST(SumTwoNum, Simple) {
   std::vector<int> vec = {1, 2, 3, 4, 6, 8};
   std::string output = captureOutput(vec, 6, 6);
   EXPECT_TRUE(output == "2+4=6" ||
-              output == "There are no necessary numbers2+4=6");
+              output == "There are no necessary numbers 2+4=6");
 }
 
 TEST(SumTwoNum, NoPairFound) {
@@ -43,6 +43,6 @@ TEST(SumTwoNum, SingleElement) {
 TEST(SumTwoNum, EdgeCase) {
   std::vector<int> vec = {3, 5};
   std::string output = captureOutput(vec, 2, 8);
-  EXPECT_TRUE(output == "3 + 5 = 8" ||
-              output == "There are no necessary numbers 3 + 5 = 8");
+  EXPECT_TRUE(output == "3+5=8" ||
+              output == "There are no necessary numbers 3+5=8");
 }
