@@ -18,7 +18,7 @@ int main() {
   {
     if (a[left]+a[right]<c) {left+=1; continue;}
     if (a[left]+a[right]>c) {right-=1; continue;}
-    if (a[left]+a[right]==c) {cout<<a[left]<<" "<<a[right]<<endl; break;}
+    if (a[left]+a[right]==c) {cout<<a[left]<<" "<<a[right]<<'\n'; break;}
   }
   cin.get();
   return 0; }
