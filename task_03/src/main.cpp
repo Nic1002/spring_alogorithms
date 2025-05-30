@@ -3,7 +3,7 @@
 #include <stack>
 using namespace std;
 
-static vector<int> dailyTemp(const vecror<inr>& temp){
+static vector<int> dailyTemp(const vecror<int>& temp){
   int n = temp.size();
   vector<int> res(n, 0);
   stack<int> s;
