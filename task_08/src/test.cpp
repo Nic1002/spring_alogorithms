@@ -66,11 +66,9 @@ TEST_F(HashTableTest, EraseNonExistentKey) {
 }
 
 TEST_F(HashTableTest, RehashTriggered) {
-  // Инициализируем маленькую таблицу, чтобы быстро вызвать rehash
   HashTable<int> small_ht(2);
   small_ht.insert("key1", 1);
-  small_ht.insert(
-      "key2", 2);  // После этого должен сработать rehash, capacity увеличится
+  small_ht.insert("key2", 2);
 
   EXPECT_TRUE(small_ht.find("key1").has_value());
   EXPECT_TRUE(small_ht.find("key2").has_value());

@@ -27,8 +27,6 @@ TEST(QuickSortTest, RandomOrder) {
   EXPECT_TRUE(isSorted(arr));
 }
 
-// === ГРАНИЧНЫЕ СЛУЧАИ ===
-
 TEST(QuickSortTest, EmptyArray) {
   std::vector<int> arr;
   quickSort(arr);
@@ -52,8 +50,6 @@ TEST(QuickSortTest, TwoElementsUnsorted) {
   quickSort(arr);
   EXPECT_EQ(arr, std::vector<int>({1, 2}));
 }
-
-// === ОСОБЫЕ СЛУЧАИ ===
 
 TEST(QuickSortTest, AllEqualElements) {
   std::vector<int> arr = {7, 7, 7, 7, 7};

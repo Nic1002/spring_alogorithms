@@ -70,9 +70,6 @@ TEST_F(AVLTreeTest, EraseNodeWithTwoChildren) {
 }
 
 TEST_F(AVLTreeTest, BalanceProperty) {
-  // Проверка высот и баланса вручную сложнее,
-  // но можно вставить много элементов и убедиться,
-  // что поиск не ломается и элементы в порядке.
   for (int i = 1; i <= 1000; ++i) {
     tree.insert(i);
   }

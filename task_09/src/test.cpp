@@ -34,7 +34,7 @@ TEST(SortedTableCheckerTest, SingleColumnSorted) {
 TEST(SortedTableCheckerTest, MultiColumnOneSorted) {
   std::vector<std::vector<int>> table = {{3, 2, 1}, {2, 2, 2}, {1, 2, 3}};
   SortedTableChecker checker(table);
-  EXPECT_TRUE(checker.isSortedSegment(0, 2));  // column 1 and 2 sorted
+  EXPECT_TRUE(checker.isSortedSegment(0, 2));
   EXPECT_TRUE(checker.isSortedSegment(1, 2));
   EXPECT_TRUE(checker.isSortedSegment(0, 1));
 }
@@ -58,12 +58,11 @@ TEST(SortedTableCheckerTest, AllColumnsSorted) {
 TEST(SortedTableCheckerTest, EdgeCases) {
   std::vector<std::vector<int>> table = {{5}};
   SortedTableChecker checker(table);
-  EXPECT_TRUE(checker.isSortedSegment(0, 0));  // Only one row, trivially sorted
+  EXPECT_TRUE(checker.isSortedSegment(0, 0));
 
   std::vector<std::vector<int>> emptyTable;
   SortedTableChecker checkerEmpty(emptyTable);
-  EXPECT_FALSE(
-      checkerEmpty.isSortedSegment(0, 0));  // Invalid since table is empty
+  EXPECT_FALSE(checkerEmpty.isSortedSegment(0, 0));
 }
 
 TEST(SortedTableCheckerTest, OutOfBoundsQueries) {
