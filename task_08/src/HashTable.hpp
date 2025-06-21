@@ -6,9 +6,10 @@
 #include <string>
 #include <vector>
 
+template <typename T>
 class HashTable {
  private:
-  std::vector<std::list<std::pair<std::string, int>>> table;
+  std::vector<std::list<std::pair<std::string, T>>> table;
   int capacity;
   int size;
 
@@ -19,7 +20,7 @@ class HashTable {
   void rehash() {
     int old_capacity = capacity;
     capacity *= 2;
-    std::vector<std::list<std::pair<std::string, int>>> new_table(capacity);
+    std::vector<std::list<std::pair<std::string, T>>> new_table(capacity);
 
     for (const auto& bucket : table) {
       for (const auto& entry : bucket) {
@@ -42,7 +43,7 @@ class HashTable {
     table.resize(capacity);
   }
 
-  void insert(const std::string& key, int value) {
+  void insert(const std::string& key, T value) {
     int idx = getIndex(key);
     for (auto& entry : table[idx]) {
       if (entry.first == key) {
@@ -55,7 +56,7 @@ class HashTable {
     checkLoadFactorAndRehash();
   }
 
-  std::optional<int> find(const std::string& key) const {
+  std::optional<T> find(const std::string& key) const {
     int idx = getIndex(key);
     for (const auto& entry : table[idx]) {
       if (entry.first == key) {
