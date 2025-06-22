@@ -1,6 +1,8 @@
 #include <iostream>
-#include <stack>
+#include <vector>
 #include <queue>
+#include <stack>
+#include <stdexcept>
 
 using namespace std;
 

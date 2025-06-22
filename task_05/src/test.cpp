@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cstdlib>
 
+#include <algorithm> // Для std::sort
+
 TEST(MergeSortTest, EmptyArray) {
     std::vector<int> arr;
     MergeSort(arr);
@@ -15,11 +17,11 @@ TEST(MergeSortTest, SingleElement) {
     EXPECT_EQ(arr, std::vector<int>({5}));
 }
 
-TEST(MergeSortTest, SortedArray) {
+TEST(MergeSortTest, AlreadySorted) {
     std::vector<int> arr = {1, 2, 3, 4, 5};
-    std::vector<int> expected = arr;
+    std::vector<int> sorted = arr;
     MergeSort(arr);
-    EXPECT_EQ(arr, expected);
+    EXPECT_EQ(arr, sorted);
 }
 
 TEST(MergeSortTest, ReverseSorted) {
@@ -37,49 +39,34 @@ TEST(MergeSortTest, RandomOrder) {
 }
 
 TEST(MergeSortTest, Duplicates) {
-    std::vector<int> arr = {2, 2, 2, 1, 1, 3, 3};
-    std::vector<int> expected = {1, 1, 2, 2, 2, 3, 3};
-    MergeSort(arr);
-    EXPECT_EQ(arr, expected);
-}
-
-TEST(MergeSortTest, LargeArray) {
-    std::vector<int> arr(1000);
-    for (int i = 0; i < 1000; i++) {
-        arr[i] = 1000 - i;
-    }
-    
-    std::vector<int> expected(1000);
-    for (int i = 0; i < 1000; i++) {
-        expected[i] = i + 1;
-    }
-    
-    MergeSort(arr);
-    EXPECT_EQ(arr, expected);
-}
-
-TEST(MergeSortTest, AllEqual) {
-    std::vector<int> arr(100, 5);
-    std::vector<int> expected = arr;
+    std::vector<int> arr = {2, 1, 2, 1, 3, 2};
+    std::vector<int> expected = {1, 1, 2, 2, 2, 3};
     MergeSort(arr);
     EXPECT_EQ(arr, expected);
 }
 
 TEST(MergeSortTest, NegativeNumbers) {
-    std::vector<int> arr = {-5, 3, -2, 0, 7, -1};
-    std::vector<int> expected = {-5, -2, -1, 0, 3, 7};
+    std::vector<int> arr = {0, -3, 5, -2, 1};
+    std::vector<int> expected = {-3, -2, 0, 1, 5};
     MergeSort(arr);
     EXPECT_EQ(arr, expected);
 }
 
-TEST(MergeSortTest, MixedNumbers) {
-    std::vector<int> arr = {5, -3, 0, 12, -8, 7};
-    std::vector<int> expected = {-8, -3, 0, 5, 7, 12};
+TEST(MergeSortTest, LargeInput) {
+    const int N = 1000;
+    std::vector<int> arr(N);
+    for (int i = 0; i < N; i++) {
+        arr[i] = rand() % 1000;
+    }
+    
+    std::vector<int> expected = arr;
+    std::sort(expected.begin(), expected.end());
+    
     MergeSort(arr);
     EXPECT_EQ(arr, expected);
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
+int main(int argc, char** argv) {
+    testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

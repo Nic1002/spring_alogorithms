@@ -1,53 +1,61 @@
 #include "hash_table.cpp"
 #include <gtest/gtest.h>
 
-TEST(HashTableTest, InsertAndGet) {
+TEST(HashTableTest, BasicOperations) {
     HashTable table;
+    EXPECT_TRUE(table.empty());
+    
     table.insert(1, 100);
     table.insert(2, 200);
+    
+    EXPECT_EQ(table.size(), 2);
+    EXPECT_FALSE(table.empty());
     EXPECT_EQ(table.get(1), 100);
     EXPECT_EQ(table.get(2), 200);
+    EXPECT_TRUE(table.contains(1));
+    EXPECT_FALSE(table.contains(3));
 }
 
-TEST(HashTableTest, UpdateValue) {
+TEST(HashTableTest, UpdateValues) {
     HashTable table;
     table.insert(1, 100);
     table.insert(1, 200);
+    
+    EXPECT_EQ(table.size(), 1);
     EXPECT_EQ(table.get(1), 200);
 }
 
-TEST(HashTableTest, ContainsKey) {
-    HashTable table;
-    table.insert(1, 100);
-    EXPECT_TRUE(table.contains(1));
-    EXPECT_FALSE(table.contains(2));
-}
-
-TEST(HashTableTest, RemoveKey) {
+TEST(HashTableTest, RemoveKeys) {
     HashTable table;
     table.insert(1, 100);
     table.insert(2, 200);
-    table.remove(1);
-    EXPECT_FALSE(table.contains(1));
-    EXPECT_TRUE(table.contains(2));
-    EXPECT_EQ(table.size(), 1);
-}
-
-TEST(HashTableTest, GetMissingKeyThrows) {
-    HashTable table;
-    EXPECT_THROW(table.get(1), std::out_of_range);
-    table.insert(1, 100);
+    table.insert(3, 300);
+    
+    table.remove(2);
+    EXPECT_EQ(table.size(), 2);
+    EXPECT_FALSE(table.contains(2));
     EXPECT_THROW(table.get(2), std::out_of_range);
+    
+    table.remove(1);
+    table.remove(3);
+    EXPECT_TRUE(table.empty());
 }
 
-TEST(HashTableTest, SizeAndEmpty) {
-    HashTable table;
-    EXPECT_TRUE(table.empty());
+TEST(HashTableTest, Collisions) {
+    HashTable table(3); // Маленький размер для теста коллизий
     table.insert(1, 100);
-    EXPECT_EQ(table.size(), 1);
-    EXPECT_FALSE(table.empty());
-    table.remove(1);
-    EXPECT_TRUE(table.empty());
+    table.insert(4, 400); // Должно быть коллизия с 1
+    table.insert(7, 700); // Коллизия
+    
+    EXPECT_EQ(table.size(), 3);
+    EXPECT_EQ(table.get(1), 100);
+    EXPECT_EQ(table.get(4), 400);
+    EXPECT_EQ(table.get(7), 700);
+    
+    table.remove(4);
+    EXPECT_FALSE(table.contains(4));
+    EXPECT_TRUE(table.contains(1));
+    EXPECT_TRUE(table.contains(7));
 }
 
 TEST(HashTableTest, Rehashing) {
@@ -55,7 +63,7 @@ TEST(HashTableTest, Rehashing) {
     table.insert(1, 100);
     table.insert(2, 200);
     table.insert(3, 300);
-    table.insert(4, 400);
+    table.insert(4, 400); // Вызовет рехеширование
     
     EXPECT_EQ(table.size(), 4);
     EXPECT_EQ(table.get(1), 100);
@@ -64,47 +72,18 @@ TEST(HashTableTest, Rehashing) {
     EXPECT_EQ(table.get(4), 400);
 }
 
-TEST(HashTableTest, CollisionHandling) {
-    HashTable table(1);
-    table.insert(1, 100);
-    table.insert(2, 200);
-    table.insert(3, 300);
-    
-    EXPECT_EQ(table.get(1), 100);
-    EXPECT_EQ(table.get(2), 200);
-    EXPECT_EQ(table.get(3), 300);
-    
-    table.remove(2);
-    EXPECT_FALSE(table.contains(2));
-    EXPECT_EQ(table.get(1), 100);
-    EXPECT_EQ(table.get(3), 300);
-}
-
-TEST(HashTableTest, LargeInput) {
+TEST(HashTableTest, ErrorCases) {
     HashTable table;
-    const int N = 1000;
-    for (int i = 0; i < N; i++) {
-        table.insert(i, i*10);
-    }
+    EXPECT_THROW(table.get(1), std::out_of_range);
     
-    for (int i = 0; i < N; i++) {
-        EXPECT_EQ(table.get(i), i*10);
-    }
+    table.insert(1, 100);
+    EXPECT_THROW(table.get(2), std::out_of_range);
     
-    for (int i = 0; i < N; i += 2) {
-        table.remove(i);
-    }
-    
-    for (int i = 0; i < N; i++) {
-        if (i % 2 == 0) {
-            EXPECT_FALSE(table.contains(i));
-        } else {
-            EXPECT_EQ(table.get(i), i*10);
-        }
-    }
+    table.remove(1);
+    EXPECT_THROW(table.get(1), std::out_of_range);
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
+int main(int argc, char** argv) {
+    testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

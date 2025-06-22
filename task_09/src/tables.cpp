@@ -15,7 +15,7 @@ public:
         m = matrix[0].size();
         pref.resize(m);
 
-        if (n == 1) return;
+        if (n == 1) return; // Нет пар строк для сравнения
 
         for (int j = 0; j < m; j++) {
             vector<int> bad(n-1, 0);

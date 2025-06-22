@@ -14,6 +14,6 @@ pair<int, int> Numbers(int number, std::vector<int> vec){
     else {
       right--;
     }
-    throw "These numbers weren't found";
+    throw runtime_error("These numbers weren't found");
   };
 };
