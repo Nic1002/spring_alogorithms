@@ -4,26 +4,26 @@
 
 using namespace std;
 
-inline vector<pair<int, int>> BFish(const vector<int>& prices, int k){
-  int n = prices.size();
-  vector<pair<int, int>> purchases;
-  deque<int> dq;
+inline vector<pair<int, int>> BFish(const vector<int>& prices, int k) {
+    int n = prices.size();
+    vector<pair<int, int>> purchases;
+    deque<int> dq;
 
-  for(int i=0; i<n; ++i){
-    while(!dq.empty() && dq.front() < i-k+1)
-    while(!dq.empty() && prices[i]<=prices[dq.back()]){
-      dq.pop_back();
-    }
-    dq.push_back(i);
-    
-    if (dq.front()==1)
-    {
-      int buy_d = min(k, n-1);
-      purchases.emplace_back(i, buy_d);
-      i += buy_d -1;
-      dq.clear();
-    }
+    for (int i = 0; i < n; ++i) {
+        while (!dq.empty() && dq.front() < i - k + 1) {
+            dq.pop_front();
+        }
 
-  }
-  return purchases;
+        while (!dq.empty() && prices[i] <= prices[dq.back()]) {
+            dq.pop_back();
+        }
+        dq.push_back(i);
+
+        if (dq.front() == i) { 
+            int buy_day = i;
+            int sell_day = min(i + k - 1, n - 1);
+            purchases.emplace_back(buy_day, sell_day);
+        }
+    }
+    return purchases;
 }
