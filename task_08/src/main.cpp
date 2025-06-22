@@ -1,3 +1,25 @@
 #include <iostream>
 
-int main() { return 0; }
+#include "hashmap.hpp"
+
+int main() {
+  HashMap map;
+
+  // Вставка элементов
+  map.insert("apple", 10);
+  map.insert("banana", 20);
+  map.insert("orange", 30);
+
+  std::cout << "Contains 'apple': " << map.contains("apple") << "\n";
+  std::cout << "Contains 'grape': " << map.contains("grape") << "\n";
+
+  std::cout << "Value of 'banana': " << map.get("banana") << "\n";
+
+  map.remove("apple");
+  std::cout << "After remove, contains 'apple': " << map.contains("apple")
+            << "\n";
+
+  std::cout << "Size: " << map.getSize() << "\n";
+
+  return 0;
+}

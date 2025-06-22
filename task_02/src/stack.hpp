@@ -1,23 +1,24 @@
 #pragma once
 
-#include <stack>
 #include <vector>
 
 class Stack {
- public:
-  void Push(int value);
-  int Pop();
-
  private:
-  std::stack<int> data_;
-};
+  std::vector<int> arr;
+  std::vector<int> min_stack;
 
-class MinStack {
  public:
-  void Push(int value);
-  int Pop();
-  int GetMin();
+  void Push(int element);
 
- private:
-  std::vector<int> data_;
+  void pop();
+
+  int peek();
+
+  void display();
+
+  int min();
+
+  bool isEmpty() const { return arr.empty(); }
+
+  size_t size() const { return arr.size(); }
 };

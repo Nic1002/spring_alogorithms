@@ -1,3 +1,3 @@
-#include <iostream>
+#include "two_numbers.hpp"
 
-int main() { return 0; }
+int main() {}
