@@ -5,8 +5,7 @@
 static void printTreeInfo(const BinarySearchTree& bst) {
   std::cout << "Tree size: " << bst.size() << "\n";
   std::cout << "Min value: "
-            << (bst.isEmpty() ? "N/A" : std::to_string(bst.minValue()))
-            << "\n";
+            << (bst.isEmpty() ? "N/A" : std::to_string(bst.minValue())) << "\n";
   std::cout << "Is empty: " << (bst.isEmpty() ? "true" : "false") << "\n"
             << "\n";
 }
@@ -30,12 +29,9 @@ int main() {
 
   // Проверка наличия элементов
   std::cout << "=== Checking contains ===" << "\n";
-  std::cout << "Contains 30: " << (bst.contains(30) ? "true" : "false")
-            << "\n";
-  std::cout << "Contains 45: " << (bst.contains(45) ? "true" : "false")
-            << "\n";
-  std::cout << "Contains 70: " << (bst.contains(70) ? "true" : "false")
-            << "\n"
+  std::cout << "Contains 30: " << (bst.contains(30) ? "true" : "false") << "\n";
+  std::cout << "Contains 45: " << (bst.contains(45) ? "true" : "false") << "\n";
+  std::cout << "Contains 70: " << (bst.contains(70) ? "true" : "false") << "\n"
             << "\n";
 
   // Удаление элементов
@@ -46,10 +42,8 @@ int main() {
 
   // Проверка после удаления
   std::cout << "=== Checking after removal ===" << "\n";
-  std::cout << "Contains 30: " << (bst.contains(30) ? "true" : "false")
-            << "\n";
-  std::cout << "Contains 70: " << (bst.contains(70) ? "true" : "false")
-            << "\n"
+  std::cout << "Contains 30: " << (bst.contains(30) ? "true" : "false") << "\n";
+  std::cout << "Contains 70: " << (bst.contains(70) ? "true" : "false") << "\n"
             << "\n";
 
   // Очистка дерева
