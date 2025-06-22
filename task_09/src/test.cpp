@@ -75,7 +75,7 @@ TEST(TableSorterTest, LargeGapInSortedColumn) {
     vector<vector<int>> table = {
         {10, 1},
         {20, 5},
-        {15, 3},
+        {15, 10},
         {25, 15},
         {30, 20}
     };
