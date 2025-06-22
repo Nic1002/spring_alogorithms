@@ -19,7 +19,7 @@ void Merge(std::vector<int>& arr, int left, int mid, int right) {
       j++;
     }
     k++;
-  }
+  };
 
   while (i < n1) {
     arr[k] = L[i];
@@ -32,7 +32,7 @@ void Merge(std::vector<int>& arr, int left, int mid, int right) {
     j++;
     k++;
   }
-}
+};
 
 void MergeSortRecursive(std::vector<int>& arr, int left, int right) {
   if (left < right) {
@@ -41,9 +41,9 @@ void MergeSortRecursive(std::vector<int>& arr, int left, int right) {
     MergeSortRecursive(arr, mid + 1, right);
     Merge(arr, left, mid, right);
   }
-}
+};
 
 void MergeSort(std::vector<int>& arr) {
   if (arr.empty()) return;
   MergeSortRecursive(arr, 0, arr.size() - 1);
-}
+};
