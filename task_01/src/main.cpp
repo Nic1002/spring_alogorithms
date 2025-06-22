@@ -1,6 +1,5 @@
+#include "solution.hpp"
 #include <iostream>
-#include <vector>
-using namespace std;
 
 int main() { 
   int n;
@@ -12,13 +11,11 @@ int main() {
   {
     cin>>a[i];
   }
-  int left = 0;
-  int right = n-1;
-  while(left!=right)
-  {
-    if (a[left]+a[right]<c) {left+=1; continue;}
-    if (a[left]+a[right]>c) {right-=1; continue;}
-    if (a[left]+a[right]==c) {cout<<a[left]<<" "<<a[right]<<endl; break;}
-  }
-  cin.get();
+  Result result = Solve(n, c, a);
+
+  if (result.finded)
+    cout << a[result.left] << ' ' << a[result.right] << endl;
+  else
+    cout << "Не удалось найти ответ!" << endl;
+
   return 0; }

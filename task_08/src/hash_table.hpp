@@ -3,9 +3,8 @@
 #include <vector>
 #include <functional>
 
-
 template<typename T>
-class hashtable final
+class Hashtable final
 {
 private:
     struct Node
@@ -22,108 +21,115 @@ private:
 
     std::function<size_t(T)> beginHash, stepHash;
 
-
 public:
-    hashtable(std::function<size_t(T)> beginHash, std::function<size_t(T)> stepHash) : beginHash(beginHash), stepHash(stepHash) {};
-    bool find(T value)
-    {
-        size_t begin = beginHash(value);
-        size_t step = stepHash(value);
+    Hashtable(std::function<size_t(T)> beginHash, std::function<size_t(T)> stepHash) : beginHash(beginHash), stepHash(stepHash) {};
+    
+    size_t Size() const { return size; }
+    size_t ActiveSize() const { return active_size; }
+    size_t BufferSize() const { return buffer_size; }
 
-        size_t i = 0;
-        while (buffer[begin] != nullptr || i++ < buffer_size)
+    bool Find(T value)
+    {
+        size_t begin = beginHash(value) % buffer_size;
+        size_t step = stepHash(value) % (buffer_size - 1) + 1;
+
+        for (size_t i = 0; i < buffer_size; ++i)
         {
-            if (buffer[begin]->value == value)
-                return true;
+            if (buffer[begin] == nullptr) return false;
+            if (buffer[begin]->full && buffer[begin]->value == value) return true;
             begin = (begin + step) % buffer_size;
         }
         return false;
     }
 
-    void resize()
+    void Resize()
     {
         buffer_size *= 2;
-        std::vector<Node*> old_buffer{buffer_size, nullptr};
+        std::vector<Node*> old_buffer(buffer_size, nullptr);
         std::swap(buffer, old_buffer);
+        size = 0;
+        active_size = 0;
         
         for (size_t i = 0; i < old_buffer.size(); ++i)
         {
-            if (old_buffer[i] != nullptr)
+            if (old_buffer[i] != nullptr && old_buffer[i]->full)
             {
-                if (old_buffer[i]->full)
-                    add(old_buffer[i]->value);
-                
+                Add(old_buffer[i]->value);
                 delete old_buffer[i];
             }
         }
     }
 
-    void rehash()
+    void Rehash()
     {
-        std::vector<Node*> old_buffer{buffer_size, nullptr};
+        std::vector<Node*> old_buffer(buffer_size, nullptr);
         std::swap(buffer, old_buffer);
+        size = 0;
+        active_size = 0;
         
         for (size_t i = 0; i < old_buffer.size(); ++i)
         {
-            if (old_buffer[i] != nullptr)
+            if (old_buffer[i] != nullptr && old_buffer[i]->full)
             {
-                if (old_buffer[i]->full)
-                    add(old_buffer[i]->value);
-                
+                Add(old_buffer[i]->value);
                 delete old_buffer[i];
             }
         }
     }
     
-    bool add(T value)
+    bool Add(T value)
     {
-        if (active_size + 1 > int(0.75 * buffer_size)) resize();
-        if (size > 2 * active_size) rehash();
+        if (active_size + 1 > int(0.75 * buffer_size)) Resize();
+        if (size > 2 * active_size) Rehash();
 
-        size_t begin = beginHash(value);
-        size_t step = stepHash(value);
+        size_t begin = beginHash(value) % buffer_size;
+        size_t step = stepHash(value) % (buffer_size - 1) + 1;
 
-        size_t i = 0;
-        size_t new_elem = -1;
-        while (buffer[begin] != nullptr || i++ < buffer_size)
+        size_t first_empty = buffer_size;
+        for (size_t i = 0; i < buffer_size; ++i)
         {
-            if (buffer[begin]->value == value)
-                return false;
-            
-            if (!buffer[begin] && !buffer[begin]->full)
-                new_elem = begin;
+            if (buffer[begin] == nullptr)
+            {
+                first_empty = begin;
+                break;
+            }
+            if (buffer[begin]->full && buffer[begin]->value == value) return false;
+            if (!buffer[begin]->full && first_empty == buffer_size) first_empty = begin;
             begin = (begin + step) % buffer_size;
         }
         
-        if (new_elem == -1)
+        if (first_empty != buffer_size)
         {
-            buffer[begin] = new Node(value);
-            ++active_size;
+            if (buffer[first_empty] == nullptr)
+            {
+                buffer[first_empty] = new Node(value);
+                active_size++;
+            }
+            else
+            {
+                buffer[first_empty]->value = value;
+                buffer[first_empty]->full = true;
+            }
+            size++;
+            return true;
         }
-        else
-        {
-            buffer[begin]->value = value;
-            buffer[begin]->full = true;
-        }
-
-        ++size;
-        return true;
+        return false;
     }
 
-    bool remove(T value)
+    bool Remove(T value)
     {
-        size_t begin = beginHash(value);
-        size_t step = stepHash(value);
+        size_t begin = beginHash(value) % buffer_size;
+        size_t step = stepHash(value) % (buffer_size - 1) + 1;
 
-        size_t i = 0;
-        while (buffer[begin] != nullptr || i++ < buffer_size)
+        for (size_t i = 0; i < buffer_size; ++i)
         {
-            if (buffer[begin]->value == value)
+            if (buffer[begin] == nullptr) return false;
+            if (buffer[begin]->full && buffer[begin]->value == value)
             {
                 buffer[begin]->full = false;
+                size--;
                 return true;
             }
-
             begin = (begin + step) % buffer_size;
         }
         return false;
