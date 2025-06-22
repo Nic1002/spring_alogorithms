@@ -1,4 +1,3 @@
 #include "tree.hpp"
 
-int main() {
-}
+int main() {}

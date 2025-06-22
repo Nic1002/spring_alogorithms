@@ -1,4 +1,3 @@
 #include "two_numbers.hpp"
 
-int main() {
-}
+int main() {}

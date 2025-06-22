@@ -3,26 +3,22 @@
 #include <vector>
 
 class Stack {
-private:
-    std::vector<int> arr;
-    std::vector<int> min_stack;
+ private:
+  std::vector<int> arr;
+  std::vector<int> min_stack;
 
-public:
-    void Push(int element);
+ public:
+  void Push(int element);
 
-    void pop();
+  void pop();
 
-    int peek();
+  int peek();
 
-    void display();
+  void display();
 
-    int min();
+  int min();
 
-    bool isEmpty() const {
-        return arr.empty();
-    }
+  bool isEmpty() const { return arr.empty(); }
 
-    size_t size() const {
-        return arr.size();
-    }
+  size_t size() const { return arr.size(); }
 };
