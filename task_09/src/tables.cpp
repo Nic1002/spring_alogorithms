@@ -32,7 +32,7 @@ public:
                 }
             }
         }
-    }
+    };
 
     bool query(int l, int r) {
         if (l == r) return true;
@@ -47,5 +47,5 @@ public:
             if (violations == 0) return true;
         }
         return false;
-    }
+    };
 };

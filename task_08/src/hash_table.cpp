@@ -15,7 +15,7 @@ private:
     size_t getBucketIndex(int key) const {
         const unsigned int ukey = static_cast<unsigned int>(key);
         return (ukey * 2654435761U) % buckets.size();
-    }
+    };
     
     void rehash() {
         std::vector<std::list<Node>> oldBuckets = std::move(buckets);
@@ -27,7 +27,7 @@ private:
                 insert(node.key, node.value);
             }
         }
-    }
+    };
 
 public:
     HashTable(size_t initialSize = 11) : buckets(initialSize) {}
@@ -92,9 +92,9 @@ public:
     
     size_t size() const {
         return itemCount;
-    }
+    };
     
     bool empty() const {
         return itemCount == 0;
-    }
+    };
 };

@@ -4,7 +4,7 @@ void SwapElements(int& a, int& b) {
     int temp = a;
     a = b;
     b = temp;
-}
+};
 
 int Partition(std::vector<int>& arr, int left, int right) {
     int mid = left + (right - left) / 2;
@@ -20,7 +20,7 @@ int Partition(std::vector<int>& arr, int left, int right) {
     }
     SwapElements(arr[i], arr[right]);
     return i;
-}
+};
 
 int QuickSelect(std::vector<int>& arr, int left, int right, int k) {
     if (left == right) {
@@ -36,7 +36,7 @@ int QuickSelect(std::vector<int>& arr, int left, int right, int k) {
     } else {
         return QuickSelect(arr, pos + 1, right, k);
     }
-}
+};
 
 int KthOrderStatistic(std::vector<int> arr, int k) {
     if (arr.empty()) {
@@ -47,4 +47,4 @@ int KthOrderStatistic(std::vector<int> arr, int k) {
     }
     
     return QuickSelect(arr, 0, arr.size() - 1, k);
-}
+};
