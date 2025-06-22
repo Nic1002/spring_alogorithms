@@ -1,23 +1,64 @@
 #include <gtest/gtest.h>
+#include "tables.cpp"
 
-#include <vector>
-
-TEST(CanReachNonDecreasingSegment, 1) {
-  // ASSERT_EQ(SolveFunction(5, 4, 6,
-  //                         std::vector<std::vector<int>>{{1, 2, 3, 5},
-  //                                                       {3, 1, 3, 2},
-  //                                                       {4, 5, 2, 3},
-  //                                                       {5, 5, 3, 2},
-  //                                                       {4, 4, 3, 4}},
-  //                         std::vector<std::pair<int, int>>{
-  //                             {1, 1}, {2, 5}, {4, 5}, {3, 5}, {1, 3}, {1,
-  //                             5}}),
-  //           (std::vector<std::string>{"Yes", "No", "Yes", "Yes", "Yes",
-  //           "No"}));
+TEST(TableSorterTest, SingleRow) {
+    vector<vector<int>> a = {{5}};
+    TableSorter ts(a);
+    EXPECT_TRUE(ts.query(1, 1));
 }
 
-TEST(CanReachNonDecreasingSegment, 2) {
-  // ASSERT_EQ(SolveFunction(1, 1, 1, std::vector<std::vector<int>>{{1, 1}},
-  //                         std::vector<std::pair<int, int>>{{1, 1}}),
-  //           (std::vector<std::string>{"Yes"}));
+TEST(TableSorterTest, TwoRowsOneColumn_Sorted) {
+    vector<vector<int>> a = {{1}, {2}};
+    TableSorter ts(a);
+    EXPECT_TRUE(ts.query(1, 2));
+}
+
+TEST(TableSorterTest, TwoRowsOneColumn_NotSorted) {
+    vector<vector<int>> a = {{2}, {1}};
+    TableSorter ts(a);
+    EXPECT_FALSE(ts.query(1, 2));
+}
+
+TEST(TableSorterTest, TwoRowsTwoColumns_OneSorted) {
+    vector<vector<int>> a = {{2, 1}, {1, 2}};
+    TableSorter ts(a);
+    EXPECT_TRUE(ts.query(1, 2));
+}
+
+TEST(TableSorterTest, TwoRowsTwoColumns_BothNotSorted) {
+    vector<vector<int>> a = {{3, 2}, {1, 0}};
+    TableSorter ts(a);
+    EXPECT_FALSE(ts.query(1, 2));
+}
+
+TEST(TableSorterTest, ThreeRowsOneSortedColumn) {
+    vector<vector<int>> a = {
+        {1, 5},
+        {2, 3},
+        {3, 1}
+    };
+    TableSorter ts(a);
+    EXPECT_TRUE(ts.query(1, 3));
+    EXPECT_TRUE(ts.query(1, 2));
+    EXPECT_TRUE(ts.query(2, 3));
+}
+
+TEST(TableSorterTest, ThreeRowsNoSortedColumn) {
+    vector<vector<int>> a = {
+        {5, 4},
+        {3, 2},
+        {1, 0}
+    };
+    TableSorter ts(a);
+    EXPECT_FALSE(ts.query(1, 3));
+    EXPECT_FALSE(ts.query(1, 2));
+    EXPECT_FALSE(ts.query(2, 3));
+    EXPECT_TRUE(ts.query(1, 1));
+    EXPECT_TRUE(ts.query(2, 2));
+    EXPECT_TRUE(ts.query(3, 3));
+}
+
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

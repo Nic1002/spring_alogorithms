@@ -1,23 +1,8 @@
-#pragma once
+#include <iostream>
+#include <stdexcept>
 
-#include <stack>
-#include <vector>
+using namespace std;
 
-class Stack {
- public:
-  void Push(int value);
-  int Pop();
+class Stack;
 
- private:
-  std::stack<int> data_;
-};
-
-class MinStack {
- public:
-  void Push(int value);
-  int Pop();
-  int GetMin();
-
- private:
-  std::vector<int> data_;
-};
+class MinStack;
