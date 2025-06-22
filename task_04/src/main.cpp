@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<pair<int, int>> bFish(const vector<int>& prices, int k){
+static vector<pair<int, int>> bFish(const vector<int>& prices, int k){
   int n = prices.size();
   vector<pair<int, int>> purchases;
   deque<int> dq;
