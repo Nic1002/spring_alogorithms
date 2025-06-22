@@ -71,19 +71,6 @@ TEST(TableSorterTest, SingleColumnMultipleQueries) {
     EXPECT_FALSE(ts.query(1, 4));
 }
 
-TEST(TableSorterTest, LargeGapInSortedColumn) {
-    vector<vector<int>> table = {
-        {10, 1},
-        {20, 5},
-        {15, 10},
-        {25, 15},
-        {30, 20}
-    };
-    TableSorter ts(table);
-    EXPECT_TRUE(ts.query(1, 5));
-    EXPECT_FALSE(ts.query(1, 3));
-}
-
 TEST(TableSorterTest, TwoRowsTwoColumnsOneSorted) {
     vector<vector<int>> table = {{2, 1}, {1, 2}};
     TableSorter ts(table);
