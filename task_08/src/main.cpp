@@ -1,27 +1,29 @@
-#include "hashmap.hpp"
 #include <iostream>
 
+#include "hashmap.hpp"
+
 int main() {
-    HashMap map;
+  HashMap map;
 
-    // Вставка элементов
-    map.insert("apple", 10);
-    map.insert("banana", 20);
-    map.insert("orange", 30);
+  // Вставка элементов
+  map.insert("apple", 10);
+  map.insert("banana", 20);
+  map.insert("orange", 30);
 
-    // Проверка наличия ключей
-    std::cout << "Contains 'apple': " << map.contains("apple") << std::endl;
-    std::cout << "Contains 'grape': " << map.contains("grape") << std::endl;
+  // Проверка наличия ключей
+  std::cout << "Contains 'apple': " << map.contains("apple") << std::endl;
+  std::cout << "Contains 'grape': " << map.contains("grape") << std::endl;
 
-    // Получение значений
-    std::cout << "Value of 'banana': " << map.get("banana") << std::endl;
+  // Получение значений
+  std::cout << "Value of 'banana': " << map.get("banana") << std::endl;
 
-    // Удаление элемента
-    map.remove("apple");
-    std::cout << "After remove, contains 'apple': " << map.contains("apple") << std::endl;
+  // Удаление элемента
+  map.remove("apple");
+  std::cout << "After remove, contains 'apple': " << map.contains("apple")
+            << std::endl;
 
-    // Размер таблицы
-    std::cout << "Size: " << map.getSize() << std::endl;
+  // Размер таблицы
+  std::cout << "Size: " << map.getSize() << std::endl;
 
-    return 0;
+  return 0;
 }
