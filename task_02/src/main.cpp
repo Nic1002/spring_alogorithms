@@ -4,12 +4,12 @@
 
 int main() {
   Stack stack;
-  stack.push(2);
-  stack.push(1);
-  stack.push(3);
-  stack.push(4);
-  stack.push(5);
-  stack.push(7);
+  stack.Push(2);
+  stack.Push(1);
+  stack.Push(3);
+  stack.Push(4);
+  stack.Push(5);
+  stack.Push(7);
 
   stack.display();
   std::cout << "\n";

@@ -1,32 +1,37 @@
-#include <memory>
+#include <algorithm>
 
-class BinarySearchTree {
- private:
-  struct Node {
+struct Node {
     int key;
-    std::unique_ptr<Node> left;
-    std::unique_ptr<Node> right;
+    Node* left;
+    Node* right;
+    int height;
+};
 
-    Node(int k) : key(k), left(nullptr), right(nullptr) {}
-  };
+class AVLTree {
+public:
+    AVLTree() : root(nullptr) {}
+    ~AVLTree() { clear(root); }
+    
+    void insert(int key) { root = insert(root, key); }
+    void remove(int key) { root = remove(root, key); }
+    bool contains(int key) const { return contains(root, key); }
+    void clear() { clear(root); root = nullptr; }
 
-  std::unique_ptr<Node> root;
-
-  void insert(std::unique_ptr<Node>& node, int key);
-  bool contains(const std::unique_ptr<Node>& node, int key) const;
-  int minValue(const std::unique_ptr<Node>& node) const;
-  void remove(std::unique_ptr<Node>& node, int key);
-  size_t size(const std::unique_ptr<Node>& node) const;
-
- public:
-  BinarySearchTree();
-  ~BinarySearchTree() = default;
-
-  void insert(int key);
-  bool contains(int key) const;
-  void remove(int key);
-  void clear();
-  size_t size() const;
-  bool isEmpty() const;
-  int minValue() const;
+private:
+    Node* root;
+    
+    Node* insert(Node* node, int key);
+    Node* remove(Node* node, int key);
+    bool contains(const Node* node, int key) const;
+    void clear(Node* node);
+    
+    // Вспомогательные функции
+    int height(Node* node) { return node ? node->height : 0; }
+    int balanceFactor(Node* node) { return node ? height(node->left) - height(node->right) : 0; }
+    void updateHeight(Node* node) { node->height = 1 + std::max(height(node->left), height(node->right)); }
+    
+    Node* rotateRight(Node* y);
+    Node* rotateLeft(Node* x);
+    Node* balance(Node* node);
+    Node* findMin(Node* node);
 };

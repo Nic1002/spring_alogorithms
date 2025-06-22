@@ -1,50 +1,34 @@
+#include "two_numbers.hpp"
 #include <gtest/gtest.h>
 
-#include <sstream>
-#include <string>
-
-#include "two_numbers.h"
-
-// Вспомогательная функция для перехвата вывода
-static std::string captureOutput(std::vector<int>& numbers, int len,
-                                 int target) {
-  std::stringstream buffer;
-  std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
-
-  FindSum(numbers, len, target);
-
-  std::cout.rdbuf(old);
-  return buffer.str();
+TEST(TwoSumTest, BasicTest) {
+    std::vector<int> nums = {2, 7, 11, 15};
+    auto result = FindSum::findTwoSum(nums, 9);
+    EXPECT_EQ(result.first, 2);
+    EXPECT_EQ(result.second, 7);
 }
 
-TEST(FindSumTest, BasicCase) {
-  std::vector<int> numbers = {1, 2, 3, 4, 6, 8};
-  std::string output = captureOutput(numbers, 6, 6);
-  EXPECT_TRUE(output == "2+4=6" ||
-              output == "There are no necessary numbers2+4=6");
+TEST(TwoSumTest, NoSolution) {
+    std::vector<int> nums = {1, 2, 3, 4};
+    auto result = FindSum::findTwoSum(nums, 10);
+    EXPECT_EQ(result.first, -1);
+    EXPECT_EQ(result.second, -1);
 }
 
-TEST(FindSumTest, NoPairFound) {
-  std::vector<int> numbers = {1, 2, 3, 4, 6, 8};
-  std::string output = captureOutput(numbers, 6, 20);
-  EXPECT_TRUE(output.empty() || output == "There are no necessary numbers");
+TEST(TwoSumTest, DuplicateNumbers) {
+    std::vector<int> nums = {3, 3, 4, 4};
+    auto result = FindSum::findTwoSum(nums, 7);
+    EXPECT_TRUE((result == std::pair<int, int>{3, 4}));
 }
 
-TEST(FindSumTest, EmptyInput) {
-  std::vector<int> numbers = {};
-  std::string output = captureOutput(numbers, 0, 5);
-  EXPECT_TRUE(output.empty() || output == "There are no necessary numbers");
+TEST(TwoSumTest, EmptyArray) {
+    std::vector<int> nums;
+    auto result = FindSum::findTwoSum(nums, 5);
+    EXPECT_EQ(result.first, -1);
+    EXPECT_EQ(result.second, -1);
 }
 
-TEST(FindSumTest, SingleElement) {
-  std::vector<int> numbers = {5};
-  std::string output = captureOutput(numbers, 1, 5);
-  EXPECT_TRUE(output == "There are no necessary numbers" || output.empty());
-}
-
-TEST(FindSumTest, EdgeCase) {
-  std::vector<int> numbers = {3, 5};
-  std::string output = captureOutput(numbers, 2, 8);
-  EXPECT_TRUE(output == "3+5=8" ||
-              output == "There are no necessary numbers3+5=8");
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

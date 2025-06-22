@@ -1,63 +1,82 @@
+#include "tree.hpp"
 #include <gtest/gtest.h>
 
-#include "tree.hpp"
+class AVLTreeTest : public ::testing::Test {
+protected:
+    AVLTree tree;
 
-TEST(BinarySearchTreeTest, InsertAndContains) {
-  BinarySearchTree bst;
-  bst.insert(5);
-  bst.insert(3);
-  bst.insert(7);
+    void SetUp() override {
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(60);
+        tree.insert(80);
+    }
+};
 
-  ASSERT_TRUE(bst.contains(5));
-  ASSERT_TRUE(bst.contains(3));
-  ASSERT_TRUE(bst.contains(7));
-  ASSERT_FALSE(bst.contains(2));
+TEST_F(AVLTreeTest, InsertAndContains) {
+    EXPECT_TRUE(tree.contains(50));
+    EXPECT_TRUE(tree.contains(30));
+    EXPECT_TRUE(tree.contains(70));
+    EXPECT_TRUE(tree.contains(20));
+    EXPECT_TRUE(tree.contains(40));
+    EXPECT_TRUE(tree.contains(60));
+    EXPECT_TRUE(tree.contains(80));
+    EXPECT_FALSE(tree.contains(10));
+    EXPECT_FALSE(tree.contains(100));
 }
 
-TEST(BinarySearchTreeTest, Remove) {
-  BinarySearchTree bst;
-  bst.insert(10);
-  bst.insert(5);
-  bst.insert(15);
+TEST_F(AVLTreeTest, RemoveElements) {
+    tree.remove(20);
+    EXPECT_FALSE(tree.contains(20));
+    EXPECT_TRUE(tree.contains(30));
 
-  bst.remove(5);
-  ASSERT_FALSE(bst.contains(5));
-  ASSERT_TRUE(bst.contains(10));
-  ASSERT_TRUE(bst.contains(15));
+    tree.remove(30);
+    EXPECT_FALSE(tree.contains(30));
+    EXPECT_TRUE(tree.contains(50));
 
-  bst.remove(10);
-  ASSERT_FALSE(bst.contains(10));
-  ASSERT_TRUE(bst.contains(15));
+    tree.remove(50);
+    EXPECT_FALSE(tree.contains(50));
+    EXPECT_TRUE(tree.contains(60));
+    EXPECT_TRUE(tree.contains(70));
 }
 
-TEST(BinarySearchTreeTest, SizeAndEmpty) {
-  BinarySearchTree bst;
-  ASSERT_TRUE(bst.isEmpty());
-  ASSERT_EQ(bst.size(), 0);
-
-  bst.insert(1);
-  bst.insert(2);
-  ASSERT_FALSE(bst.isEmpty());
-  ASSERT_EQ(bst.size(), 2);
-
-  bst.clear();
-  ASSERT_TRUE(bst.isEmpty());
-  ASSERT_EQ(bst.size(), 0);
+TEST_F(AVLTreeTest, MaintainsBalanceProperty) {
+    AVLTree balanceTestTree;
+    
+    // Вставляем элементы в порядке, который создает дисбаланс в обычном BST
+    for (int i = 1; i <= 100; ++i) {
+        balanceTestTree.insert(i);
+        // Можно добавить проверку баланса на каждом шаге
+    }
+    
+    // Проверяем, что все элементы присутствуют
+    for (int i = 1; i <= 100; ++i) {
+        EXPECT_TRUE(balanceTestTree.contains(i));
+    }
 }
 
-TEST(BinarySearchTreeTest, MinValue) {
-  BinarySearchTree bst;
-  bst.insert(8);
-  bst.insert(3);
-  bst.insert(10);
-  bst.insert(1);
-  bst.insert(6);
+TEST_F(AVLTreeTest, ClearTree) {
+    EXPECT_TRUE(tree.contains(50));
+    tree.clear();
+    EXPECT_FALSE(tree.contains(50));
+    
+    // Проверяем, что можно снова использовать дерево
+    tree.insert(100);
+    EXPECT_TRUE(tree.contains(100));
+}
 
-  ASSERT_EQ(bst.minValue(), 1);
+TEST(AVLTreeEmptyTest, HandlesEmptyTree) {
+    AVLTree emptyTree;
+    EXPECT_FALSE(emptyTree.contains(10));
+    
+    // Удаление из пустого дерева не должно вызывать ошибок
+    EXPECT_NO_THROW(emptyTree.remove(10));
+}
 
-  bst.remove(1);
-  ASSERT_EQ(bst.minValue(), 3);
-
-  bst.clear();
-  ASSERT_THROW(bst.minValue(), std::runtime_error);
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

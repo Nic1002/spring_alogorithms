@@ -1,67 +1,88 @@
 #include "tree.hpp"
 
-BinarySearchTree::BinarySearchTree() : root(nullptr) {}
-
-void BinarySearchTree::insert(int key) { insert(root, key); }
-
-void BinarySearchTree::insert(std::unique_ptr<Node>& node, int key) {
-  if (!node) {
-    node = std::make_unique<Node>(key);
-  } else if (key < node->key) {
-    insert(node->left, key);
-  } else if (key > node->key) {
-    insert(node->right, key);
-  }
+Node* AVLTree::insert(Node* node, int key) {
+    if (!node) return new Node{key, nullptr, nullptr, 1};
+    
+    if (key < node->key)
+        node->left = insert(node->left, key);
+    else if (key > node->key)
+        node->right = insert(node->right, key);
+    else
+        return node; // Дубликаты не допускаем
+    
+    return balance(node);
 }
 
-bool BinarySearchTree::contains(int key) const { return contains(root, key); }
-
-bool BinarySearchTree::contains(const std::unique_ptr<Node>& node,
-                                int key) const {
-  if (!node) return false;
-  if (key == node->key) return true;
-  return key < node->key ? contains(node->left, key)
-                         : contains(node->right, key);
-}
-
-void BinarySearchTree::remove(int key) { remove(root, key); }
-
-void BinarySearchTree::remove(std::unique_ptr<Node>& node, int key) {
-  if (!node) return;
-
-  if (key < node->key) {
-    remove(node->left, key);
-  } else if (key > node->key) {
-    remove(node->right, key);
-  } else {
-    if (!node->left && !node->right) {
-      node.reset();
-    } else if (!node->left) {
-      node = std::move(node->right);
-    } else if (!node->right) {
-      node = std::move(node->left);
-    } else {
-      node->key = minValue(node->right);
-      remove(node->right, node->key);
+Node* AVLTree::remove(Node* node, int key) {
+    if (!node) return nullptr;
+    
+    if (key < node->key)
+        node->left = remove(node->left, key);
+    else if (key > node->key)
+        node->right = remove(node->right, key);
+    else {
+        if (!node->left || !node->right) {
+            Node* temp = node->left ? node->left : node->right;
+            delete node;
+            return temp;
+        }
+        Node* temp = findMin(node->right);
+        node->key = temp->key;
+        node->right = remove(node->right, temp->key);
     }
-  }
+    return balance(node);
 }
 
-int BinarySearchTree::minValue() const {
-  if (!root) throw std::runtime_error("Tree is empty");
-  return minValue(root);
+bool AVLTree::contains(const Node* node, int key) const {
+    if (!node) return false;
+    if (key == node->key) return true;
+    return key < node->key ? contains(node->left, key) : contains(node->right, key);
 }
 
-int BinarySearchTree::minValue(const std::unique_ptr<Node>& node) const {
-  return node->left ? minValue(node->left) : node->key;
+void AVLTree::clear(Node* node) {
+    if (node) {
+        clear(node->left);
+        clear(node->right);
+        delete node;
+    }
 }
 
-void BinarySearchTree::clear() { root.reset(); }
-
-size_t BinarySearchTree::size() const { return size(root); }
-
-size_t BinarySearchTree::size(const std::unique_ptr<Node>& node) const {
-  return node ? 1 + size(node->left) + size(node->right) : 0;
+Node* AVLTree::rotateRight(Node* y) {
+    Node* x = y->left;
+    y->left = x->right;
+    x->right = y;
+    updateHeight(y);
+    updateHeight(x);
+    return x;
 }
 
-bool BinarySearchTree::isEmpty() const { return !root; }
+Node* AVLTree::rotateLeft(Node* x) {
+    Node* y = x->right;
+    x->right = y->left;
+    y->left = x;
+    updateHeight(x);
+    updateHeight(y);
+    return y;
+}
+
+Node* AVLTree::balance(Node* node) {
+    updateHeight(node);
+    int bf = balanceFactor(node);
+    
+    if (bf > 1) {
+        if (balanceFactor(node->left) < 0)
+            node->left = rotateLeft(node->left);
+        return rotateRight(node);
+    }
+    if (bf < -1) {
+        if (balanceFactor(node->right) > 0)
+            node->right = rotateRight(node->right);
+        return rotateLeft(node);
+    }
+    return node;
+}
+
+Node* AVLTree::findMin(Node* node) {
+    while (node && node->left) node = node->left;
+    return node;
+}

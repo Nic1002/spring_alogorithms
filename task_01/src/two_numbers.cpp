@@ -1,21 +1,20 @@
-#include "two_numbers.h"
+#include "two_numbers.hpp"
+#include <utility>
 
-#include <iostream>
-
-void FindSum(std::vector<int>& numbers, int len, int target) {
-  int left_r = 0;
-  int right_r = len - 1;
-
-  while (left_r < right_r) {
-    int sum = numbers[left_r] + numbers[right_r];
-    if (right_r - left_r == 0) std::cout << "There are no necessary numbers";
-    if (sum == target) {
-      std::cout << numbers[left_r] << "+" << numbers[right_r] << "=" << target;
-      break;
+std::pair<int, int> FindSum::findTwoSum(const std::vector<int>& nums, int target) {
+    int left = 0;
+    int right = nums.size() - 1;
+    
+    while (left < right) {
+        int sum = nums[left] + nums[right];
+        if (sum == target) {
+            return {nums[left], nums[right]};
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
     }
-    if (sum < target)
-      ++left_r;
-    else
-      --right_r;
-  }
+    
+    return {-1, -1}; // Если пара не найдена
 }

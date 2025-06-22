@@ -1,12 +1,28 @@
 #pragma once
+
 #include <vector>
 
-struct Stack {
-  std::vector<int> arr;
+class Stack {
+private:
+    std::vector<int> arr;
+    std::vector<int> min_stack;
 
-  void push(int element);
-  void pop();
-  int peek();
-  void display();
-  int min();
+public:
+    void Push(int element);
+
+    void pop();
+
+    int peek();
+
+    void display();
+
+    int min();
+
+    bool isEmpty() const {
+        return arr.empty();
+    }
+
+    size_t size() const {
+        return arr.size();
+    }
 };

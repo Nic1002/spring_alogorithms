@@ -4,8 +4,8 @@
 
 TEST(StackTest, PushPopPeek) {
   Stack s;
-  s.push(10);
-  s.push(20);
+  s.Push(10);
+  s.Push(20);
   EXPECT_EQ(s.peek(), 20);
   s.pop();
   EXPECT_EQ(s.peek(), 10);
@@ -23,10 +23,10 @@ TEST(StackTest, PeekEmptyStack) {
 
 TEST(StackTest, MinElement) {
   Stack s;
-  s.push(5);
-  s.push(2);
-  s.push(7);
-  s.push(1);
+  s.Push(5);
+  s.Push(2);
+  s.Push(7);
+  s.Push(1);
   EXPECT_EQ(s.min(), 1);
   s.pop();
   EXPECT_EQ(s.min(), 2);
@@ -47,9 +47,9 @@ TEST(StackTest, DisplayEmpty) {
 
 TEST(StackTest, DisplayNonEmpty) {
   Stack s;
-  s.push(1);
-  s.push(2);
-  s.push(3);
+  s.Push(1);
+  s.Push(2);
+  s.Push(3);
   testing::internal::CaptureStdout();
   s.display();
   std::string output = testing::internal::GetCapturedStdout();
@@ -58,12 +58,12 @@ TEST(StackTest, DisplayNonEmpty) {
 
 TEST(StackTest, MultipleOperations) {
   Stack s;
-  s.push(10);
-  s.push(5);
-  s.push(15);
+  s.Push(10);
+  s.Push(5);
+  s.Push(15);
   EXPECT_EQ(s.min(), 5);
   s.pop();
-  s.push(3);
+  s.Push(3);
   EXPECT_EQ(s.peek(), 3);
   EXPECT_EQ(s.min(), 3);
 }

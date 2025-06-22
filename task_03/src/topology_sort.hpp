@@ -1,4 +1,4 @@
 #pragma once
 #include <vector>
 
-std::vector<int> TopologySort(const std::vector<int>& temperatures);
+std::vector<int> TemperatureSorting(const std::vector<int>& temperatures);
