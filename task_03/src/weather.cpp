@@ -1,6 +1,6 @@
 #include "weather.hpp"
 
-std::vector<int> dailyTemperatures(const std::vector<int>& temperatures) {
+std::vector<int> DailyTemperatures(const std::vector<int>& temperatures) {
     int n = temperatures.size();
     std::vector<int> result(n, 0);
     std::stack<int> s;
