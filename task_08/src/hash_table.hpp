@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
+#include <vector>
 #include <list>
 #include <stdexcept>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 

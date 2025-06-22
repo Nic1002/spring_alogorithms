@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
-#include <stdexcept>
 #include <vector>
+#include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
