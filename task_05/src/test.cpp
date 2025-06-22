@@ -1,9 +1,7 @@
 #include <gtest/gtest.h>
-#include "merge_sort.cpp"
+#include "merge_sort.h"
 #include <algorithm>
 #include <cstdlib>
-
-#include <algorithm> // Для std::sort
 
 TEST(MergeSortTest, EmptyArray) {
     std::vector<int> arr;

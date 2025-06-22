@@ -1,4 +1,4 @@
-#include "statistic.hpp"
+#include "statistic.h"
 
 void SwapElements(int& a, int& b) {
     int temp = a;

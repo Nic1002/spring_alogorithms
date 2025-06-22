@@ -1,4 +1,4 @@
-#include "merge_sort.hpp"
+#include "merge_sort.h"
 
 void Merge(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;

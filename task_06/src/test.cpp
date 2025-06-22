@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "statistic.cpp"
+#include "statistic.h"
 
 TEST(QuickSelectTest, BasicFunctionality) {
     std::vector<int> arr = {3, 1, 4, 2, 5};

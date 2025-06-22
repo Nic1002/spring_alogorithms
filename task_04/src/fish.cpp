@@ -1,17 +1,19 @@
-#include "fish.hpp"
+#include "fish.h"
+#include <vector>
+#include <stack>
 
-long long solveFishShopping(const vector<int>& prices, int K) {
+long long SolveFishShopping(const std::vector<int>& prices, int K) {
     int N = prices.size();
     if (N == 0) return 0;
 
-    vector<int> next(N);
-    stack<int> st;
+    std::vector<int> next(N); 
+    std::stack<int> st;
 
     for (int i = 0; i < N; i++) {
         while (!st.empty()) {
             int j = st.top();
             if (j + K > i) break;
-            next[j] = j + K > N ? N : j + K;
+            next[j] = (j + K > N) ? N : j + K;
             st.pop();
         }
 
@@ -26,7 +28,7 @@ long long solveFishShopping(const vector<int>& prices, int K) {
     while (!st.empty()) {
         int j = st.top();
         st.pop();
-        next[j] = j + K > N ? N : j + K;
+        next[j] = (j + K > N) ? N : j + K;
     }
 
     long long total_cost = 0;
