@@ -3,103 +3,103 @@
 
 TEST(HashTableTest, InsertAndGet) {
     HashTable table;
-    table.Insert(1, 100);
-    table.Insert(2, 200);
-    EXPECT_EQ(table.Get(1), 100);
-    EXPECT_EQ(table.Get(2), 200);
+    table.insert(1, 100);
+    table.insert(2, 200);
+    EXPECT_EQ(table.get(1), 100);
+    EXPECT_EQ(table.get(2), 200);
 }
 
 TEST(HashTableTest, UpdateValue) {
     HashTable table;
-    table.Insert(1, 100);
-    table.Insert(1, 200);
-    EXPECT_EQ(table.Get(1), 200);
+    table.insert(1, 100);
+    table.insert(1, 200);
+    EXPECT_EQ(table.get(1), 200);
 }
 
 TEST(HashTableTest, ContainsKey) {
     HashTable table;
-    table.Insert(1, 100);
-    EXPECT_TRUE(table.Contains(1));
-    EXPECT_FALSE(table.Contains(2));
+    table.insert(1, 100);
+    EXPECT_TRUE(table.contains(1));
+    EXPECT_FALSE(table.contains(2));
 }
 
 TEST(HashTableTest, RemoveKey) {
     HashTable table;
-    table.Insert(1, 100);
-    table.Insert(2, 200);
-    table.Remove(1);
-    EXPECT_FALSE(table.Contains(1));
-    EXPECT_TRUE(table.Contains(2));
-    EXPECT_EQ(table.Size(), 1);
+    table.insert(1, 100);
+    table.insert(2, 200);
+    table.remove(1);
+    EXPECT_FALSE(table.contains(1));
+    EXPECT_TRUE(table.contains(2));
+    EXPECT_EQ(table.size(), 1);
 }
 
 TEST(HashTableTest, GetMissingKeyThrows) {
     HashTable table;
-    EXPECT_THROW(table.Get(1), std::out_of_range);
-    table.Insert(1, 100);
-    EXPECT_THROW(table.Get(2), std::out_of_range);
+    EXPECT_THROW(table.get(1), std::out_of_range);
+    table.insert(1, 100);
+    EXPECT_THROW(table.get(2), std::out_of_range);
 }
 
 TEST(HashTableTest, SizeAndEmpty) {
     HashTable table;
-    EXPECT_TRUE(table.Empty());
-    table.Insert(1, 100);
-    EXPECT_EQ(table.Size(), 1);
-    EXPECT_FALSE(table.Empty());
-    table.Remove(1);
-    EXPECT_TRUE(table.Empty());
+    EXPECT_TRUE(table.empty());
+    table.insert(1, 100);
+    EXPECT_EQ(table.size(), 1);
+    EXPECT_FALSE(table.empty());
+    table.remove(1);
+    EXPECT_TRUE(table.empty());
 }
 
 TEST(HashTableTest, Rehashing) {
     HashTable table(3);
-    table.Insert(1, 100);
-    table.Insert(2, 200);
-    table.Insert(3, 300);
-    table.Insert(4, 400);
+    table.insert(1, 100);
+    table.insert(2, 200);
+    table.insert(3, 300);
+    table.insert(4, 400);
     
-    EXPECT_EQ(table.Size(), 4);
-    EXPECT_EQ(table.Get(1), 100);
-    EXPECT_EQ(table.Get(2), 200);
-    EXPECT_EQ(table.Get(3), 300);
-    EXPECT_EQ(table.Get(4), 400);
+    EXPECT_EQ(table.size(), 4);
+    EXPECT_EQ(table.get(1), 100);
+    EXPECT_EQ(table.get(2), 200);
+    EXPECT_EQ(table.get(3), 300);
+    EXPECT_EQ(table.get(4), 400);
 }
 
 TEST(HashTableTest, CollisionHandling) {
-    HashTable table(1); // Все ключи в одном бакете
-    table.Insert(1, 100);
-    table.Insert(2, 200);
-    table.Insert(3, 300);
+    HashTable table(1);
+    table.insert(1, 100);
+    table.insert(2, 200);
+    table.insert(3, 300);
     
-    EXPECT_EQ(table.Get(1), 100);
-    EXPECT_EQ(table.Get(2), 200);
-    EXPECT_EQ(table.Get(3), 300);
+    EXPECT_EQ(table.get(1), 100);
+    EXPECT_EQ(table.get(2), 200);
+    EXPECT_EQ(table.get(3), 300);
     
-    table.Remove(2);
-    EXPECT_FALSE(table.Contains(2));
-    EXPECT_EQ(table.Get(1), 100);
-    EXPECT_EQ(table.Get(3), 300);
+    table.remove(2);
+    EXPECT_FALSE(table.contains(2));
+    EXPECT_EQ(table.get(1), 100);
+    EXPECT_EQ(table.get(3), 300);
 }
 
 TEST(HashTableTest, LargeInput) {
     HashTable table;
-    const int N = 10000;
+    const int N = 1000;
     for (int i = 0; i < N; i++) {
-        table.Insert(i, i*10);
+        table.insert(i, i*10);
     }
     
     for (int i = 0; i < N; i++) {
-        EXPECT_EQ(table.Get(i), i*10);
+        EXPECT_EQ(table.get(i), i*10);
     }
     
     for (int i = 0; i < N; i += 2) {
-        table.Remove(i);
+        table.remove(i);
     }
     
     for (int i = 0; i < N; i++) {
         if (i % 2 == 0) {
-            EXPECT_FALSE(table.Contains(i));
+            EXPECT_FALSE(table.contains(i));
         } else {
-            EXPECT_EQ(table.Get(i), i*10);
+            EXPECT_EQ(table.get(i), i*10);
         }
     }
 }

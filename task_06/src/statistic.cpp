@@ -6,7 +6,7 @@ void SwapElements(int& a, int& b) {
     b = temp;
 }
 
-int Partition(vector<int>& arr, int left, int right) {
+int Partition(std::vector<int>& arr, int left, int right) {
     int mid = left + (right - left) / 2;
     int pivot = arr[mid];
     SwapElements(arr[mid], arr[right]);
@@ -22,7 +22,7 @@ int Partition(vector<int>& arr, int left, int right) {
     return i;
 }
 
-int QuickSelect(vector<int>& arr, int left, int right, int k) {
+int QuickSelect(std::vector<int>& arr, int left, int right, int k) {
     if (left == right) {
         return arr[left];
     }
@@ -38,12 +38,12 @@ int QuickSelect(vector<int>& arr, int left, int right, int k) {
     }
 }
 
-int KthOrderStatistic(vector<int> arr, int k) {
+int KthOrderStatistic(std::vector<int> arr, int k) {
     if (arr.empty()) {
-        throw invalid_argument("Array is empty");
+        throw std::invalid_argument("Array is empty");
     }
     if (k < 0 || k >= static_cast<int>(arr.size())) {
-        throw out_of_range("k is out of array bounds");
+        throw std::out_of_range("k is out of array bounds");
     }
     
     return QuickSelect(arr, 0, arr.size() - 1, k);

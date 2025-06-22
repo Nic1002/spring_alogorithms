@@ -13,18 +13,18 @@ private:
     const double loadFactorThreshold = 0.75;
     
     size_t getBucketIndex(int key) const {
-        std::hash<int> hasher;
-        return hasher(key) % buckets.size();
+        const unsigned int ukey = static_cast<unsigned int>(key);
+        return (ukey * 2654435761U) % buckets.size();
     }
     
-    void Rehash() {
+    void rehash() {
         std::vector<std::list<Node>> oldBuckets = std::move(buckets);
         buckets.resize(oldBuckets.size() * 2);
         itemCount = 0;
         
         for (auto& bucket : oldBuckets) {
             for (auto& node : bucket) {
-                Insert(node.key, node.value);
+                insert(node.key, node.value);
             }
         }
     }
@@ -32,9 +32,9 @@ private:
 public:
     HashTable(size_t initialSize = 11) : buckets(initialSize) {}
     
-    void Insert(int key, int value) {
+    void insert(int key, int value) {
         if (static_cast<double>(itemCount) / buckets.size() > loadFactorThreshold) {
-            Rehash();
+            rehash();
         }
         
         size_t index = getBucketIndex(key);
@@ -49,7 +49,7 @@ public:
         itemCount++;
     }
     
-    bool Contains(int key) const {
+    bool contains(int key) const {
         if (buckets.empty()) return false;
         
         size_t index = getBucketIndex(key);
@@ -61,7 +61,7 @@ public:
         return false;
     }
     
-    int Get(int key) const {
+    int get(int key) const {
         if (buckets.empty()) {
             throw std::out_of_range("Key not found");
         }
@@ -75,7 +75,7 @@ public:
         throw std::out_of_range("Key not found");
     }
     
-    void Remove(int key) {
+    void remove(int key) {
         if (buckets.empty()) return;
         
         size_t index = getBucketIndex(key);
@@ -90,11 +90,11 @@ public:
         }
     }
     
-    size_t Size() const {
+    size_t size() const {
         return itemCount;
     }
     
-    bool Empty() const {
+    bool empty() const {
         return itemCount == 0;
     }
 };

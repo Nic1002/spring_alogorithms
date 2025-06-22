@@ -1,13 +1,16 @@
 #include "merge_sort.hpp"
 
-void Merge(std::vector<int>& arr, int left, int mid, int right) {
+void merge(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
+    
     std::vector<int> L(n1), R(n2);
+    
     for (int i = 0; i < n1; i++)
         L[i] = arr[left + i];
     for (int j = 0; j < n2; j++)
         R[j] = arr[mid + 1 + j];
+    
     int i = 0, j = 0, k = left;
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
@@ -19,11 +22,13 @@ void Merge(std::vector<int>& arr, int left, int mid, int right) {
         }
         k++;
     }
+    
     while (i < n1) {
         arr[k] = L[i];
         i++;
         k++;
     }
+    
     while (j < n2) {
         arr[k] = R[j];
         j++;
@@ -31,16 +36,16 @@ void Merge(std::vector<int>& arr, int left, int mid, int right) {
     }
 }
 
-void MergeSortRecursive(std::vector<int>& arr, int left, int right) {
+void merge_sort_recursive(std::vector<int>& arr, int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
-        MergeSortRecursive(arr, left, mid);
-        MergeSortRecursive(arr, mid + 1, right);
-        Merge(arr, left, mid, right);
+        merge_sort_recursive(arr, left, mid);
+        merge_sort_recursive(arr, mid + 1, right);
+        merge(arr, left, mid, right);
     }
 }
 
-void MergeSort(std::vector<int>& arr) {
+void merge_sort(std::vector<int>& arr) {
     if (arr.empty()) return;
-    MergeSortRecursive(arr, 0, arr.size() - 1);
+    merge_sort_recursive(arr, 0, arr.size() - 1);
 }
