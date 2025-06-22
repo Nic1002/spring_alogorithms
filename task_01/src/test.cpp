@@ -6,7 +6,7 @@
 #include "two_numbers.h"
 
 // Вспомогательная функция для перехвата вывода
-std::string captureOutput(std::vector<int>& numbers, int len, int target) {
+static std::string captureOutput(std::vector<int>& numbers, int len, int target) {
   std::stringstream buffer;
   std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
 

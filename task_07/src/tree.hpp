@@ -1,5 +1,4 @@
 #include <memory>
-#include <stdexcept>
 
 class BinarySearchTree {
  private:
